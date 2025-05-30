@@ -26,9 +26,10 @@ public class AreaRisco {
     private String descricao;
     private String statusArea;
 
-    @OneToMany(mappedBy = "areaDeRisco")
+    @OneToMany(mappedBy = "areaRisco")
     private List<Sensor> sensores;
 
-    @OneToMany(mappedBy = "areaDeRisco", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "areaRisco", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Alerta> alertas;
+
 }

@@ -27,6 +27,7 @@ public class EquipeResposta {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "equipeDeResposta")
+    @OneToMany(mappedBy = "equipeResposta")
     private List<Alerta> alertas;
+
 }
