@@ -1,4 +1,4 @@
-# *Fiap_GlobalSolution - 🌍 GeoMonitor*
+# 🌍 *GeoMonitor - Fiap GlobalSolution*
 
 **Monitoramento Inteligente de Zonas de Risco com IoT: Prevenção e Resiliência**
 
