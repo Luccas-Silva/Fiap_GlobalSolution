@@ -37,25 +37,25 @@ Principais relacionamentos:
 - Um alerta está vinculado a uma área de risco e pode ser respondido por uma equipe.
 - Uma equipe está associada a um usuário responsável.
 
-## Diagrama Model de Banco
+### Diagrama Model de Banco
 
 ![Relational_1](https://github.com/user-attachments/assets/75f40d2b-7d39-4206-b48d-128ba2172790)
 
 ## 🔧 Tecnologias Utilizadas
 
-- Java 17+
+- Java 21+
 - Spring Boot
 - Spring Data JPA
 - Hibernate
 - Lombok
-- Banco de dados relacional (PostgreSQL ou MySQL)
-- Thymeleaf (caso tenha frontend)
-- Sensores simulados ou reais via API/Mock
+- Banco de dados relacional
+- Thymeleaf 
+- Sensores
 
 ## 🚨 Funcionalidades
 
 - Cadastro e gerenciamento de áreas de risco e sensores.
-- Coleta periódica de dados dos sensores (manual ou automática).
+- Coleta periódica de dados dos sensores (manual e automática).
 - Geração automática de alertas com base em limiares definidos.
 - Gestão de equipes de resposta e suas atuações.
 - Painel de controle com histórico de alertas e dados sensoriais.
