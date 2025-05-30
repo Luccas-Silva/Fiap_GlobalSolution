@@ -23,9 +23,13 @@ public class EquipeResposta {
     private String areaAtuacao;
     private String contato;
 
-    @ManyToOne
-    @JoinColumn(name = "idUsuario")
-    private Usuario usuario;
+    @ManyToMany
+    @JoinTable(
+            name = "equipe_resposta_usuario",
+            joinColumns = @JoinColumn(name = "idEquipe"),
+            inverseJoinColumns = @JoinColumn(name = "idUsuario")
+    )
+    private List<Usuario> usuarios;
 
     @OneToMany(mappedBy = "equipeResposta")
     private List<Alerta> alertas;

@@ -26,6 +26,7 @@ public class Usuario {
     private String senha;
     private char ativo;
 
-    @OneToMany(mappedBy = "usuario")
+    @ManyToMany(mappedBy = "usuarios")
     private List<EquipeResposta> equipes;
+
 }
