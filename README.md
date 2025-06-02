@@ -1,18 +1,18 @@
 # 🌍 GeoMonitor - Fiap GlobalSolution
 
-***Monitoramento Inteligente de Zonas de Risco com IoT: Prevenção e Resiliência***
+***Monitoramento Inteligente de Zonas de Risco: Prevenção e Resiliência***
 
 ## Introdução
 
-Em um cenário global de eventos extremos cada vez mais frequentes, a capacidade de prever e mitigar desastres naturais torna-se crucial. Encostas instáveis, barragens e outras zonas de risco representam ameaças significativas à vida humana e ao meio ambiente. Este projeto propõe uma solução inovadora baseada em Sensores de Internet das Coisas (IoT) para o monitoramento contínuo e em tempo real dessas áreas, transformando o desafio em uma oportunidade de proteção e resiliência.
+Em um cenário global de eventos extremos cada vez mais frequentes, a capacidade de prever e mitigar desastres naturais torna-se crucial. Encostas instáveis, barragens e outras zonas de risco representam ameaças significativas à vida humana e ao meio ambiente. Este projeto propõe uma solução inovadora baseada em Sensores e Internet para o monitoramento contínuo e em tempo real dessas áreas, transformando o desafio em uma oportunidade de proteção e resiliência.
 
 ## O Desafio: Vulnerabilidade e Resposta Lenta
 
 Atualmente, muitas áreas de risco são monitoradas de forma manual ou com tecnologias limitadas, resultando em dados intermitentes e respostas tardias. Deslizamentos de terra, rompimentos de barragens e inundações repentinas podem ocorrer com pouca ou nenhuma advertência. A falta de informações precisas e em tempo real impede a evacuação preventiva e a tomada de decisões eficazes.
 
-## A Solução: Sensores IoT para Monitoramento Preditivo
+## A Solução: Sensores para Monitoramento Preditivo
 
-Propomos a implementação de uma rede inteligente de sensores IoT estrategicamente posicionados em encostas, barragens e outras zonas de risco. Esta rede coletará dados ambientais e estruturais de forma contínua, transmitindo-os para uma plataforma centralizada para análise, acionamento de alertas e apoio à tomada de decisão.
+Propomos a implementação de uma rede inteligente de sensores estrategicamente posicionados em encostas, barragens e outras zonas de risco. Esta rede coletará dados ambientais e estruturais de forma contínua, transmitindo-os para uma plataforma centralizada para análise, acionamento de alertas e apoio à tomada de decisão.
 
 ## 🎯 Objetivo
 
@@ -82,4 +82,4 @@ src/
 
 ## Conclusão
 
-A aplicação de sensores IoT para o monitoramento de encostas, barragens e zonas de risco é um exemplo claro de como a tecnologia, aliada à criatividade e ao propósito, pode transformar desafios em soluções que salvam vidas e protegem nosso planeta. Ao investir em sistemas de monitoramento preditivo, não apenas mitigamos os impactos dos eventos extremos, mas também construímos um futuro mais seguro e resiliente para todos.
+A aplicação de sensores  para o monitoramento de encostas, barragens e zonas de risco é um exemplo claro de como a tecnologia, aliada à criatividade e ao propósito, pode transformar desafios em soluções que salvam vidas e protegem nosso planeta. Ao investir em sistemas de monitoramento preditivo, não apenas mitigamos os impactos dos eventos extremos, mas também construímos um futuro mais seguro e resiliente para todos.
