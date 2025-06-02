@@ -1,11 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/Home.css}" rel="stylesheet"/>
+    <title>Global Solution</title>
 </head>
 <body>
-    <div th:replace="fragments/nav :: nav"></div>
-    <h1 th:text="#{saudacao}"></h1>
+<header class="header">
+    <a class="logo" th:href="@{/}">
+        <p class="logo-green">Global</p>
+        <p>Solution</p>
+    </a>
+    <nav>
+        <ul class="menu">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/pacientes}">Pacientes</a></li>
+            <li><a th:href="@{/funcionarios}">Funcionários</a></li>
+            <li><a th:href="@{/devteams}">Dev Teams</a></li>
+            <li><a th:href="@{/login}">Login</a></li>
+        </ul>
+    </nav>
+    <nav>
+        <ul class="language-menu">
+            <li><a th:href="@{/?lang=pt}">🇧🇷 pt-br</a></li>
+            <li><a th:href="@{/?lang=en}">🇺🇸 en-us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="box">
+        <div class="text-box">
+            <h1>Uma Visão Abrangente e Integrada</h1>
+            <p>Imaginamos um futuro onde o cuidado com a saúde é personalizado e eficiente. Nosso software oferece um portfólio abrangente que engloba toda a trajetória do paciente em uma especialidade específica. Com o acesso unificado a consultas, documentos em PDF, análises médicas e apontamentos, os profissionais de saúde obtêm uma visão completa do histórico do paciente.</p>
+        </div>
+        <img class="img1" th:src="@{/imgs/Medical.svg}" alt="Ilustração médica">
+    </section>
+    <section class="box">
+        <div class="text-box">
+            <h1>Principais Benefícios do Nosso Sistema</h1>
+            <p>Tomada de Decisões Informada: Capacitamos os médicos a analisarem tratamentos anteriores na especialidade específica, permitindo decisões mais informadas sobre exames e prescrições.
+                Acesso Universal: Independentemente do convênio, particular ou SUS, nosso sistema garante acesso abrangente a todos os profissionais de saúde, promovendo uma abordagem inclusiva e igualitária.
+                Acompanhamento Eficiente: Focamos em facilitar o acompanhamento e planejamento de tratamentos eletivos, proporcionando uma abordagem proativa para a saúde do paciente.</p>
+        </div>
+        <img class="img2" th:src="@{/imgs/Computer.svg}" alt="Computador">
+    </section>
+    <section class="box">
+        <div class="text-box">
+            <h1>Eficiência na Tomada de Decisões Médicas</h1>
+            <p>Reconhecemos o desafio de garantir acompanhamento médico eficiente, especialmente na ausência de interações diretas. Nosso sistema tecnológico surge como a resposta, apoiando a tomada de decisões médicas ao distinguir entre consultas necessárias para diferentes tipos de doenças, independentemente de sua frequência.</p>
+        </div>
+        <img class="img3" th:src="@{/imgs/Blood.svg}" alt="Saúde">
+    </section>
+    <section class="box">
+        <div class="text-box">
+            <h1>Evitando Redundâncias para um Tratamento Eficaz</h1>
+            <p>O destaque de nosso sistema é a capacidade de assegurar a eficácia do tratamento, evitando procedimentos redundantes. Com base em informações prévias, garantimos que cada consulta seja significativa e contribua para a saúde a longo prazo do paciente.</p>
+        </div>
+        <img class="img4" th:src="@{/imgs/Mathematics.svg}" alt="Eficiência">
+    </section>
+    <section class="box">
+        <div class="text-box">
+            <h1>Junte-se à Transformação da Saúde Personalizada</h1>
+            <p>Não deixe passar a oportunidade de fazer parte desta revolução na saúde. Adote nossa plataforma para uma abordagem mais informada, eficiente e personalizada ao cuidado com a sua saúde. Seu bem-estar merece a inovação que oferecemos. Saúde. Conectada. Eficiente. Personalizada.</p>
+        </div>
+        <img class="img5" th:src="@{/imgs/Mathematics.svg}" alt="Eficiência">
+    </section>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <a class="logo" th:href="@{/}">
+            <p class="logo-green">Global</p>
+            <p>Solution</p>
+        </a>
+        <ul class="footer_list">
+            <li><a th:href="@{/devteams}" target="_blank">GitHub</a></li>
+        </ul>
+    </div>
+    <div class="footer-copyright">&#169; 2025 all rights reserved.</div>
+</footer>
 </body>
 </html>
