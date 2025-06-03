@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #36393B;
+    --second-color: #473BF0;
+    --danger-color: #e74c3c;
+    --success-color: #27ae60;
+    --bg-color: #E4E2DD;
+    font-size: 62.5%; /* 1rem = 10px */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--primary-color);
+    padding: 2rem;
+    font-size: 1.6rem;
+}
+
+/* Navbar */
+.header {
+    background: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 4rem;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-green {
+    color: var(--second-color);
+    font-weight: 700;
+}
+
+.menu, .language-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.menu a, .language-menu a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s;
+}
+
+.menu a:hover, .language-menu a:hover {
+    color: var(--second-color);
+    border-bottom: 2px solid var(--second-color);
+}
+
+/* Botão padrão */
+button, .btn {
+    background-color: var(--second-color);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+button:hover, .btn:hover {
+    background-color: #2f2bc0;
+}
+
+a.btn {
+    margin-top: 2rem;
+    display: inline-block;
+}
+
+/* Formulário centralizado */
+form {
+    max-width: 500px;
+    margin: auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+}
+
+input[type="checkbox"] {
+    margin-top: 1rem;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background: #E4E2DD;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 2px solid #473BF0;
+}
+
+table th, table td {
+    border: 2px solid #ccc;
+    padding: 1rem;
+    text-align: left;
+}
+
+table th {
+    background: var(--second-color);
+    color: white;
+}
+
+table td .btn {
+    margin: 0.2rem;
+}
+
+/* Pop-up mensagem */
+.popup {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    z-index: 100;
+    animation: fadeout 5s forwards;
+}
+
+.popup.success { background: var(--success-color); }
+.popup.error { background: var(--danger-color); }
+
+@keyframes fadeout {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+/* Modal de confirmação */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+}

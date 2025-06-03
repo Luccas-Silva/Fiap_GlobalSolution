@@ -1,6 +1,5 @@
 package com.fiap.Java_GlobalSolution.controller;
 
-import com.fiap.Java_GlobalSolution.model.EquipeResposta;
 import com.fiap.Java_GlobalSolution.model.Usuario;
 import com.fiap.Java_GlobalSolution.repository.UsuarioRepository;
 import org.springframework.stereotype.Controller;
@@ -30,34 +29,32 @@ public class UsuarioController {
     }
 
     @GetMapping("/novo")
-    public String novoUsuario() {
+    public String novoUsuario(Model model) {
         Usuario usuario = new Usuario();
         usuario.setCargo("usuario");
         usuario.setAtivo('S');
-        usuario = usuarioRepository.save(usuario);
-        return "redirect:/usuario/editar/" + usuario.getIdUsuario();
+        model.addAttribute("usuario", usuario);
+        return "usuario/editar";
     }
-
 
     @PostMapping("/salvar")
     public String salvarUsuario(@ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("usuario", usuario);
-            return "usuario/formulario";
+            return "usuario/editar";
         }
 
         if (usuario.getIdUsuario() == null) {
-            //  id nulo, cargo "usuario", ativo 'S', sem equipes
-            usuario.setCargo("usuario");
             usuario.setAtivo('S');
+            usuario.setCargo(
+                    usuario.getCargo() == null || usuario.getCargo().trim().isEmpty() ? "usuario" : usuario.getCargo()
+            );
             usuario.setEquipes(null);
         } else {
             Optional<Usuario> existente = usuarioRepository.findById(usuario.getIdUsuario());
             if (existente.isPresent()) {
                 usuario.setEquipes(existente.get().getEquipes());
             }
-            usuario.setCargo("usuario");
-            usuario.setAtivo('S');
         }
 
         usuarioRepository.save(usuario);
@@ -69,11 +66,6 @@ public class UsuarioController {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
         if (usuario == null) {
             redirectAttributes.addFlashAttribute("erro", "Usuário não encontrado.");
-            return "redirect:/usuario/lista";
-        }
-        // Supondo que getEquipes() retorna uma lista ou set de equipes
-        if (usuario.getEquipes() != null && !usuario.getEquipes().isEmpty()) {
-            redirectAttributes.addFlashAttribute("erro", "Usuários que fazem parte de uma equipe não podem ser editados.");
             return "redirect:/usuario/lista";
         }
         model.addAttribute("usuario", usuario);

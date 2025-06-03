@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link rel="stylesheet" th:href="@{/css/usuario.css}">
   <title>Lista de Usuários</title>
   <meta charset="UTF-8">
 </head>
 <body>
+<header class="header">
+  <a class="logo" th:href="@{/}">
+    <span class="logo-green">Global</span><span>Solution</span>
+  </a>
+  <nav>
+    <ul class="menu">
+      <li><a th:href="@{/}">Home</a></li>
+      <li><a th:href="@{/}">Sensores</a></li>
+      <li><a th:href="@{/}">Equipes</a></li>
+      <li><a th:href="@{/}">Login</a></li>
+      <li><a th:href="@{/}">GitHub</a></li>
+    </ul>
+  </nav>
+  <nav>
+    <ul class="language-menu">
+      <li><a th:href="@{/?lang=pt}">🇧🇷 pt-br</a></li>
+      <li><a th:href="@{/?lang=en}">🇺🇸 en-us</a></li>
+    </ul>
+  </nav>
+</header>
+
 <h2>Usuários</h2>
 
-<!-- Mensagens de feedback -->
-<div th:if="${mensagem}" style="color:green; font-weight:bold;" th:text="${mensagem}"></div>
-<div th:if="${erro}" style="color:red; font-weight:bold;" th:text="${erro}"></div>
+<div th:if="${mensagem}" class="popup success" th:text="${mensagem}"></div>
+<div th:if="${erro}" class="popup error" th:text="${erro}"></div>
 
-<a th:href="@{/usuario/novo}">Novo Usuário</a>
+<a th:href="@{/usuario/novo}" class="btn">Novo Usuário</a>
+
 <table border="1">
   <tr>
-    <th>ID</th>
     <th>Nome</th>
     <th>Email</th>
     <th>Telefone</th>
@@ -22,17 +43,40 @@
     <th>Ações</th>
   </tr>
   <tr th:each="usuario : ${usuarios}">
-    <td th:text="${usuario.idUsuario}">ID</td>
     <td th:text="${usuario.nome}">Nome</td>
     <td th:text="${usuario.email}">Email</td>
     <td th:text="${usuario.telefone}">Telefone</td>
     <td th:text="${usuario.cargo}">Cargo</td>
     <td>
-      <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}">Editar</a>
-      <a th:href="@{|/usuario/deletar/${usuario.idUsuario}|}"
-         onclick="return confirm('Tem certeza que deseja deletar este usuário?');">Deletar</a>
+      <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}" class="btn">Editar</a>
+      <button type="button" class="btn" th:onclick="'confirmarExclusao(' + ${usuario.idUsuario} + ')'">Deletar</button>
     </td>
   </tr>
 </table>
+
+<div id="confirmModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <p>Tem certeza que deseja deletar este usuário?</p>
+    <button id="confirmBtn" class="btn">Confirmar</button>
+    <button type="button" onclick="fecharModal()" class="btn">Cancelar</button>
+  </div>
+</div>
+
+<script>
+  let idParaDeletar;
+
+  function confirmarExclusao(id) {
+    idParaDeletar = id;
+    document.getElementById('confirmModal').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('confirmModal').style.display = 'none';
+  }
+
+  document.getElementById('confirmBtn').onclick = function () {
+    window.location.href = `/usuario/deletar/${idParaDeletar}`;
+  };
+</script>
 </body>
 </html>
