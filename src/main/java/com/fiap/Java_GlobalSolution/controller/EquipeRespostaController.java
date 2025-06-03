@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,36 +26,26 @@ public class EquipeRespostaController {
     }
 
     @GetMapping("/lista")
-    public String listar(Model model) {
-        model.addAttribute("equipes", equipeRepo.findAll());
+    public String listarEquipes(Model model) {
+        List<EquipeResposta> equipes = equipeRepo.findAll();
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        model.addAttribute("equipes", equipes);
+        model.addAttribute("usuariosDisponiveis", usuarios);
         return "equipe/lista";
     }
 
-    @GetMapping("/usuarios-sem-equipe")
-    @ResponseBody
-    public List<Usuario> usuariosSemEquipe() {
-        return usuarioRepository.findUsuariosSemEquipe();
-    }
-
     @PostMapping("/{idEquipe}/adicionar-integrante")
-    public String adicionarIntegrante(@PathVariable Integer idEquipe,
-                                      @RequestParam Integer idUsuario,
-                                      @RequestParam String cargo,
-                                      RedirectAttributes redirectAttributes) {
+    public String adicionarIntegrante(
+            @PathVariable Integer idEquipe,
+            @RequestParam Integer idUsuario,
+            @RequestParam String cargo,
+            RedirectAttributes redirectAttributes
+    ) {
         EquipeResposta equipe = equipeRepo.findById(idEquipe).orElseThrow();
         Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow();
-
-        if (equipe.getUsuarios() == null) equipe.setUsuarios(new ArrayList<>());
-        if (!equipe.getUsuarios().contains(usuario)) equipe.getUsuarios().add(usuario);
-
-        if (usuario.getEquipes() == null) usuario.setEquipes(new ArrayList<>());
-        if (!usuario.getEquipes().contains(equipe)) usuario.getEquipes().add(equipe);
-
         usuario.setCargo(cargo);
-
+        equipe.getUsuarios().add(usuario);
         equipeRepo.save(equipe);
-        usuarioRepository.save(usuario);
-
         redirectAttributes.addFlashAttribute("mensagem", "Integrante adicionado com sucesso!");
         return "redirect:/equipe/lista";
     }
@@ -65,13 +54,8 @@ public class EquipeRespostaController {
     public String removerIntegrante(@PathVariable Integer idEquipe, @PathVariable Integer idUsuario, RedirectAttributes redirectAttributes) {
         EquipeResposta equipe = equipeRepo.findById(idEquipe).orElseThrow();
         Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow();
-
-        if (equipe.getUsuarios() != null) equipe.getUsuarios().remove(usuario);
-        if (usuario.getEquipes() != null) usuario.getEquipes().remove(equipe);
-
+        equipe.getUsuarios().remove(usuario);
         equipeRepo.save(equipe);
-        usuarioRepository.save(usuario);
-
         redirectAttributes.addFlashAttribute("mensagem", "Integrante removido com sucesso!");
         return "redirect:/equipe/lista";
     }

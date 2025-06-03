@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,15 +23,13 @@ public class EquipeResposta {
     private String contato;
 
     @ManyToMany
-    @JoinTable(
-            name = "equipe_resposta_usuario",
+    @JoinTable(name = "equipe_resposta_usuario",
             joinColumns = @JoinColumn(name = "idEquipe"),
-            inverseJoinColumns = @JoinColumn(name = "idUsuario")
-    )
-    private List<Usuario> usuarios;
+            inverseJoinColumns = @JoinColumn(name = "idUsuario"))
+    private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "equipeResposta")
-    private List<Alerta> alertas;
+    private List<Alerta> alertas = new ArrayList<>();
 
     public EquipeResposta() {
     }

@@ -11,27 +11,7 @@
         margin-bottom: 12px;
         padding: 12px 24px;
         background: #f7f7f7;
-        cursor: pointer;
-        transition: background 0.2s;
         position: relative;
-    }
-    .card:hover {
-        background: #eaeaea;
-    }
-    .integrantes {
-        display: none;
-        margin-top: 8px;
-        margin-bottom: 14px;
-        padding-left: 12px;
-        background: #fafafa;
-        border-left: 3px solid #bdbdbd;
-    }
-    .integrantes.show {
-        display: block;
-    }
-    .integrante-acao a, .integrante-acao button {
-        margin-left: 8px;
-        font-size: 0.9em;
     }
     .card-actions {
         position: absolute; right: 24px; top: 16px;
@@ -42,139 +22,50 @@
         text-decoration: none;
     }
     .card-actions a:hover { text-decoration: underline; }
-    .add-btn {
-        background: #2d5be3;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        padding: 6px 14px;
-        margin-top: 8px;
-        cursor: pointer;
-    }
-    .add-btn:hover { background: #1e3c8a; }
-    /* Popup */
-    #popupUsuarios {
-        display: none;
-        position: fixed;
-        top: 15%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        background: #fff;
-        border: 1px solid #888;
-        border-radius: 8px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.13);
-        padding: 24px 32px 18px 32px;
-        z-index: 999;
-        min-width: 320px;
-    }
-    #popupUsuarios label { display: block; margin-top: 12px; }
-    #popupUsuarios button[type="submit"] { margin-top: 16px; }
   </style>
 </head>
 <body>
 <h2>Equipes</h2>
+<div th:if="${mensagem}" style="color: green; margin-bottom: 10px;" th:text="${mensagem}"></div>
 <a th:href="@{/equipe/novo}" style="margin-bottom:20px;display:inline-block;">Nova Equipe</a>
 
 <div th:each="equipe : ${equipes}" style="margin-bottom: 16px;">
-  <div class="card" th:onclick="'toggleIntegrantes(' + ${equipe.idEquipe} + ')'" >
+  <div class="card">
     <b th:text="${equipe.nomeEquipe}">Nome da Equipe</b> <br/>
     Área de Atuação: <span th:text="${equipe.areaAtuacao}">Área</span> <br/>
     Contato: <span th:text="${equipe.contato}">Contato</span>
     <div class="card-actions">
-      <a th:href="@{|/equipe/editar/${equipe.idEquipe}|}" onclick="event.stopPropagation();">Editar</a>
-      <!-- Removido o botão Excluir -->
-      <!-- <a th:href="@{|/equipe/deletar/${equipe.idEquipe}|}" onclick="return confirm('Excluir esta equipe?');event.stopPropagation();">Excluir</a> -->
+      <a th:href="@{|/equipe/editar/${equipe.idEquipe}|}">Editar</a>
     </div>
   </div>
-  <div th:id="'integrantes-' + ${equipe.idEquipe}" class="integrantes">
+  <div>
     <b>Integrantes:</b>
     <ul style="list-style: none; padding-left: 0;">
       <li th:each="usuario : ${equipe.usuarios}" style="margin-bottom: 7px;">
         <span th:text="${usuario.nome}">Nome</span>
         <span th:if="${usuario.cargo != null}">(<b th:text="${usuario.cargo}">Cargo</b>)</span>
         - <span th:text="${usuario.email}">Email</span>
-        <span class="integrante-acao">
-                    <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}">Editar</a>
-                    <a th:href="@{|/equipe/${equipe.idEquipe}/remover-integrante/${usuario.idUsuario}|}"
-                       onclick="return confirm('Remover este integrante da equipe?');">Remover</a>
-                </span>
+        <span>
+          <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}">Editar</a>
+          <a th:href="@{|/equipe/${equipe.idEquipe}/remover-integrante/${usuario.idUsuario}|}"
+             onclick="return confirm('Remover este integrante da equipe?');">Remover</a>
+        </span>
       </li>
       <li th:if="${#lists.isEmpty(equipe.usuarios)}" style="color:#888;">Nenhum integrante nesta equipe.</li>
     </ul>
-    <button type="button" class="add-btn" th:onclick="'abrirPopupUsuarios(' + ${equipe.idEquipe} + ');event.stopPropagation();'">Adicionar Integrante</button>
+    <!-- Form tradicional para adicionar integrante -->
+    <form th:action="@{'/equipe/' + ${equipe.idEquipe} + '/adicionar-integrante'}" method="post" style="margin-top:8px;">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <label>Adicionar integrante:</label>
+      <select name="idUsuario" required>
+        <option th:each="usuario : ${usuariosDisponiveis}" th:value="${usuario.idUsuario}" th:text="${usuario.nome} + ' (' + ${usuario.email} + ')'"></option>
+      </select>
+      <label>Cargo:</label>
+      <input type="text" name="cargo" required/>
+      <button type="submit">Adicionar</button>
+    </form>
   </div>
+  <hr/>
 </div>
-
-<!-- Popup modal (inicialmente escondido) -->
-<div id="popupUsuarios">
-  <h3 style="margin-top:0;">Adicionar Integrante</h3>
-  <form id="formAdicionarIntegrante" method="post">
-    <label>Usuário:</label>
-    <select id="selectUsuario" name="idUsuario" required>
-      <option value="">Carregando...</option>
-    </select>
-    <label>Cargo na equipe:</label>
-    <input type="text" name="cargo" id="cargoUsuario" required />
-    <br>
-    <button type="submit" class="add-btn">Adicionar</button>
-    <button type="button" onclick="fecharPopupUsuarios()" class="add-btn" style="background:#888;">Cancelar</button>
-  </form>
-  <div th:if="${mensagem}" style="color: green; margin-bottom: 10px;" th:text="${mensagem}"></div>
-</div>
-
-<script>
-  function toggleIntegrantes(equipeId) {
-      var el = document.getElementById("integrantes-" + equipeId);
-      if(el) el.classList.toggle("show");
-  }
-
-  let equipeSelecionada = null;
-
-  function abrirPopupUsuarios(idEquipe) {
-      equipeSelecionada = idEquipe;
-      fetch('/equipe/usuarios-sem-equipe')
-        .then(resp => resp.json())
-        .then(usuarios => {
-            let select = document.getElementById("selectUsuario");
-            select.innerHTML = "";
-            if (usuarios.length === 0) {
-                let op = document.createElement("option");
-                op.value = "";
-                op.innerText = "Nenhum usuário disponível";
-                select.appendChild(op);
-            } else {
-                let op0 = document.createElement("option");
-                op0.value = "";
-                op0.innerText = "Selecione...";
-                op0.disabled = true;
-                op0.selected = true;
-                select.appendChild(op0);
-                usuarios.forEach(u => {
-                    let op = document.createElement("option");
-                    op.value = u.idUsuario;
-                    op.innerText = u.nome + " (" + u.email + ")";
-                    select.appendChild(op);
-                });
-            }
-            document.getElementById("popupUsuarios").style.display = "block";
-        });
-  }
-
-  function fecharPopupUsuarios() {
-      document.getElementById("popupUsuarios").style.display = "none";
-  }
-
-  document.getElementById("formAdicionarIntegrante").onsubmit = function(ev) {
-      ev.preventDefault();
-      const dados = new FormData(ev.target);
-      fetch(`/equipe/${equipeSelecionada}/adicionar-integrante`, {
-          method: 'POST',
-          body: dados
-      }).then(() => {
-          fecharPopupUsuarios();
-          window.location.reload();
-      });
-  }
-</script>
 </body>
 </html>

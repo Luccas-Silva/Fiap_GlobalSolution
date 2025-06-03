@@ -1,8 +1,10 @@
 package com.fiap.Java_GlobalSolution.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,7 +24,8 @@ public class Usuario {
     private char ativo;
 
     @ManyToMany(mappedBy = "usuarios")
-    private List<EquipeResposta> equipes;
+    @JsonIgnore
+    private List<EquipeResposta> equipes = new ArrayList<>();
 
     public Usuario() {
     }
