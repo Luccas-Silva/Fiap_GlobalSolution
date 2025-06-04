@@ -10,7 +10,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/equipe")
@@ -27,10 +29,19 @@ public class EquipeRespostaController {
 
     @GetMapping("/lista")
     public String listarEquipes(Model model) {
-        List<EquipeResposta> equipes = equipeRepo.findAll();
+        List<EquipeResposta> equipes = equipeRepo.findAllWithAlertas();
         List<Usuario> usuarios = usuarioRepository.findAll();
+
+        // Mapa: idEquipe -> quantidade de alertas
+        Map<Integer, Long> alertasPorEquipe = new HashMap<>();
+        for (EquipeResposta equipe : equipes) {
+            long count = equipe.getAlertas() != null ? equipe.getAlertas().size() : 0;
+            alertasPorEquipe.put(equipe.getIdEquipe(), count);
+        }
+
         model.addAttribute("equipes", equipes);
         model.addAttribute("usuariosDisponiveis", usuarios);
+        model.addAttribute("alertasAtendidosPorEquipe", alertasPorEquipe);
         return "equipe/lista";
     }
 
@@ -77,5 +88,21 @@ public class EquipeRespostaController {
         EquipeResposta equipe = equipeRepo.findById(id).orElseThrow();
         model.addAttribute("equipe", equipe);
         return "equipe/form";
+    }
+
+    @PostMapping("/remover/{id}")
+    public String removerEquipe(@PathVariable Integer id, RedirectAttributes redirectAttrs) {
+        EquipeResposta equipe = equipeRepo.findById(id).orElse(null);
+        if (equipe == null) {
+            redirectAttrs.addFlashAttribute("erro", "Equipe não encontrada.");
+            return "redirect:/equipe/lista";
+        }
+        if (equipe.getAlertas() != null && !equipe.getAlertas().isEmpty()) {
+            redirectAttrs.addFlashAttribute("erro", "Não é possível remover esta equipe pois existem alertas associados.");
+            return "redirect:/equipe/lista";
+        }
+        equipeRepo.delete(equipe);
+        redirectAttrs.addFlashAttribute("mensagem", "Equipe removida com sucesso!");
+        return "redirect:/equipe/lista";
     }
 }

@@ -47,7 +47,7 @@
          th:value="${usuario.cargo} != null ? ${usuario.cargo} : 'usuario'" /><br/>
 
   <label>Senha:</label>
-  <input type="password" th:field="*{senha}" required /><br/>
+  <input type="text" th:field="*{senha}" required /><br/>
 
   <label>Ativo:</label>
   <input type="checkbox" th:field="*{ativo}" th:value="'S'" /> Ativo<br/>

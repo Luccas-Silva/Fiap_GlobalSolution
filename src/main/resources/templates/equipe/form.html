@@ -3,19 +3,25 @@
 <head>
   <title th:text="${equipe.idEquipe == null} ? 'Nova Equipe' : 'Editar Equipe'">Equipe</title>
   <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/equipe.css}" />
 </head>
 <body>
 <h2 th:text="${equipe.idEquipe == null} ? 'Nova Equipe' : 'Editar Equipe'">Equipe</h2>
+
 <form th:action="@{/equipe/salvar}" th:object="${equipe}" method="post">
   <input type="hidden" th:field="*{idEquipe}" />
+
   <label>Nome:</label>
-  <input type="text" th:field="*{nomeEquipe}" required /><br/>
+  <input type="text" th:field="*{nomeEquipe}" required />
+
   <label>Área de Atuação:</label>
-  <input type="text" th:field="*{areaAtuacao}" required /><br/>
+  <input type="text" th:field="*{areaAtuacao}" required />
+
   <label>Contato:</label>
-  <input type="text" th:field="*{contato}" required /><br/>
+  <input type="text" th:field="*{contato}" required />
+
   <button type="submit">Salvar</button>
-  <a th:href="@{/equipe/lista}">Cancelar</a>
+  <a class="btn" th:href="@{/equipe/lista}">Cancelar</a>
 </form>
 </body>
 </html>

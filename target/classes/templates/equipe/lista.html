@@ -3,69 +3,114 @@
 <head>
   <title>Equipes</title>
   <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/equipe.css}" />
   <style>
-    body { font-family: Arial, sans-serif; }
-    .card {
-        border: 1px solid #888;
-        border-radius: 6px;
-        margin-bottom: 12px;
-        padding: 12px 24px;
-        background: #f7f7f7;
-        position: relative;
+    .integrantes, .form-integrante {
+      display: none;
+      margin-top: 10px;
     }
-    .card-actions {
-        position: absolute; right: 24px; top: 16px;
+    .toggle-btn {
+      margin-top: 10px;
+      background: #2d5be3;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
     }
-    .card-actions a {
-        margin-left: 12px;
-        color: #2d5be3;
-        text-decoration: none;
+    .toggle-btn:hover {
+      background: #2045b3;
     }
-    .card-actions a:hover { text-decoration: underline; }
   </style>
+  <script>
+    function toggleDiv(divId, btnId, labelMostrar, labelOcultar) {
+      const div = document.getElementById(divId);
+      const btn = document.getElementById(btnId);
+      if (div.style.display === "none") {
+        div.style.display = "block";
+        btn.innerText = labelOcultar;
+      } else {
+        div.style.display = "none";
+        btn.innerText = labelMostrar;
+      }
+    }
+  </script>
 </head>
 <body>
 <h2>Equipes</h2>
-<div th:if="${mensagem}" style="color: green; margin-bottom: 10px;" th:text="${mensagem}"></div>
-<a th:href="@{/equipe/novo}" style="margin-bottom:20px;display:inline-block;">Nova Equipe</a>
 
-<div th:each="equipe : ${equipes}" style="margin-bottom: 16px;">
+<div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+<div th:if="${erro}" class="erro" th:text="${erro}"></div>
+
+<a class="btn" th:href="@{/equipe/novo}">Nova Equipe</a>
+
+<div th:each="equipe : ${equipes}">
   <div class="card">
-    <b th:text="${equipe.nomeEquipe}">Nome da Equipe</b> <br/>
+    <b th:text="${equipe.nomeEquipe}">Nome da Equipe</b>
+    <span class="alert-count-badge"
+          th:text="${alertasAtendidosPorEquipe[equipe.idEquipe]} + ' alertas'">
+        0 alertas
+      </span>
+    <br/>
     Área de Atuação: <span th:text="${equipe.areaAtuacao}">Área</span> <br/>
     Contato: <span th:text="${equipe.contato}">Contato</span>
+
     <div class="card-actions">
       <a th:href="@{|/equipe/editar/${equipe.idEquipe}|}">Editar</a>
+      <form th:action="@{|/equipe/remover/${equipe.idEquipe}|}" method="post" onsubmit="return confirm('Tem certeza que deseja remover esta equipe?');">
+        <button type="submit" class="btn-delete">Deletar</button>
+      </form>
     </div>
-  </div>
-  <div>
-    <b>Integrantes:</b>
-    <ul style="list-style: none; padding-left: 0;">
-      <li th:each="usuario : ${equipe.usuarios}" style="margin-bottom: 7px;">
-        <span th:text="${usuario.nome}">Nome</span>
-        <span th:if="${usuario.cargo != null}">(<b th:text="${usuario.cargo}">Cargo</b>)</span>
-        - <span th:text="${usuario.email}">Email</span>
-        <span>
-          <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}">Editar</a>
-          <a th:href="@{|/equipe/${equipe.idEquipe}/remover-integrante/${usuario.idUsuario}|}"
-             onclick="return confirm('Remover este integrante da equipe?');">Remover</a>
-        </span>
-      </li>
-      <li th:if="${#lists.isEmpty(equipe.usuarios)}" style="color:#888;">Nenhum integrante nesta equipe.</li>
-    </ul>
-    <!-- Form tradicional para adicionar integrante -->
-    <form th:action="@{'/equipe/' + ${equipe.idEquipe} + '/adicionar-integrante'}" method="post" style="margin-top:8px;">
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-      <label>Adicionar integrante:</label>
+
+    <!-- Botão para mostrar/ocultar formulário de adicionar integrante -->
+    <button class="toggle-btn" type="button"
+            th:id="'btn-form-' + ${equipe.idEquipe}"
+            th:onclick="'toggleDiv(\'form-' + ${equipe.idEquipe} + '\', \'btn-form-' + ${equipe.idEquipe} + '\', \'Adicionar Integrante\', \'Ocultar Formulário\')'">
+      Adicionar Integrante
+    </button>
+
+    <!-- Formulário escondido por padrão -->
+    <form th:id="'form-' + ${equipe.idEquipe}"
+          class="form-integrante"
+          th:action="@{'/equipe/' + ${equipe.idEquipe} + '/adicionar-integrante'}"
+          method="post">
+      <label>Integrante:</label>
       <select name="idUsuario" required>
-        <option th:each="usuario : ${usuariosDisponiveis}" th:value="${usuario.idUsuario}" th:text="${usuario.nome} + ' (' + ${usuario.email} + ')'"></option>
+        <option th:each="usuario : ${usuariosDisponiveis}"
+                th:value="${usuario.idUsuario}"
+                th:text="${usuario.nome} + ' (' + ${usuario.email} + ')'">
+        </option>
       </select>
       <label>Cargo:</label>
-      <input type="text" name="cargo" required/>
-      <button type="submit">Adicionar</button>
+      <input type="text" name="cargo" required />
+      <button type="submit" class="btn">Adicionar</button>
     </form>
+
+    <!-- Botão para mostrar/ocultar integrantes -->
+    <button class="toggle-btn" type="button"
+            th:id="'btn-int-' + ${equipe.idEquipe}"
+            th:onclick="'toggleDiv(\'integrantes-' + ${equipe.idEquipe} + '\', \'btn-int-' + ${equipe.idEquipe} + '\', \'Mostrar Integrantes\', \'Ocultar Integrantes\')'">
+      Mostrar Integrantes
+    </button>
+
+    <!-- Lista de integrantes escondida por padrão -->
+    <div class="integrantes" th:id="'integrantes-' + ${equipe.idEquipe}">
+      <b>Integrantes:</b>
+      <ul>
+        <li th:each="usuario : ${equipe.usuarios}">
+          <span th:text="${usuario.nome}">Nome</span>
+          <span th:if="${usuario.cargo != null}">(<b th:text="${usuario.cargo}">Cargo</b>)</span>
+          - <span th:text="${usuario.email}">Email</span>
+          <span>
+              <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}">Editar</a>
+              <a th:href="@{|/equipe/${equipe.idEquipe}/remover-integrante/${usuario.idUsuario}|}"
+                 onclick="return confirm('Remover este integrante da equipe?');">Remover</a>
+            </span>
+        </li>
+        <li th:if="${#lists.isEmpty(equipe.usuarios)}" style="color:#888;">Nenhum integrante nesta equipe.</li>
+      </ul>
+    </div>
   </div>
-  <hr/>
 </div>
 </body>
 </html>
