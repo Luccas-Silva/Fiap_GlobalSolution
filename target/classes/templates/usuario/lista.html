@@ -2,30 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <link rel="stylesheet" th:href="@{/css/usuario.css}">
-  <title>Lista de Usuários</title>
+  <title>Global Solution - Usuário</title>
   <meta charset="UTF-8">
 </head>
 <body>
-<header class="header">
-  <a class="logo" th:href="@{/}">
-    <span class="logo-green">Global</span><span>Solution</span>
-  </a>
-  <nav>
-    <ul class="menu">
-      <li><a th:href="@{/}">Home</a></li>
-      <li><a th:href="@{/}">Sensores</a></li>
-      <li><a th:href="@{/}">Equipes</a></li>
-      <li><a th:href="@{/}">Login</a></li>
-      <li><a th:href="@{/}">GitHub</a></li>
-    </ul>
-  </nav>
-  <nav>
-    <ul class="language-menu">
-      <li><a th:href="@{/?lang=pt}">🇧🇷 pt-br</a></li>
-      <li><a th:href="@{/?lang=en}">🇺🇸 en-us</a></li>
-    </ul>
-  </nav>
-</header>
+<div th:replace="fragments/header :: header"></div>
 
 <h2>Usuários</h2>
 
@@ -80,5 +61,7 @@
     window.location.href = `/usuario/deletar/${idParaDeletar}`;
   };
 </script>
+
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

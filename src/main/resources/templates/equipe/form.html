@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title th:text="${equipe.idEquipe == null} ? 'Nova Equipe' : 'Editar Equipe'">Equipe</title>
+  <title>Global Solution - Equipe</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/equipe.css}" />
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <h2 th:text="${equipe.idEquipe == null} ? 'Nova Equipe' : 'Editar Equipe'">Equipe</h2>
 
 <form th:action="@{/equipe/salvar}" th:object="${equipe}" method="post">
@@ -23,5 +24,6 @@
   <button type="submit">Salvar</button>
   <a class="btn" th:href="@{/equipe/lista}">Cancelar</a>
 </form>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

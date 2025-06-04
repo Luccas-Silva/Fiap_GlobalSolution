@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link th:href="@{/css/Home.css}" rel="stylesheet"/></head>
+<body>
+<div th:fragment="footer">
+  <footer>
+    <div class="footer-content">
+      <a class="logo" th:href="@{/}">
+        <p class="logo-green">Global</p>
+        <p>Solution</p>
+      </a>
+      <ul class="footer_list">
+        <li><a th:href="@{https://github.com/Luccas-Silva/Fiap_GlobalSolution_Java}" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="footer-copyright">
+      &#169; 2025 all rights reserved.
+    </div>
+  </footer>
+</div>
+</body>
+</html>

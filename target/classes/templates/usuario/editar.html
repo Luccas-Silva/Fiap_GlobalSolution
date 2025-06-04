@@ -2,33 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <link rel="stylesheet" th:href="@{/css/usuario.css}">
-  <title>Editar Usuário</title>
+  <title>EGlobal Solution - Usuário</title>
   <meta charset="UTF-8">
 </head>
 <body>
-<header class="header">
-  <a class="logo" th:href="@{/}">
-    <p class="logo-green">Global</p>
-    <p>Solution</p>
-  </a>
-  <nav>
-    <ul class="menu">
-      <li><a th:href="@{/}">Home</a></li>
-      <li><a th:href="@{/}">Sensores</a></li>
-      <li><a th:href="@{/}">Equipes</a></li>
-      <li><a th:href="@{/}">Login</a></li>
-      <li><a th:href="@{/}">GitHub</a></li>
-    </ul>
-  </nav>
-  <nav>
-    <ul class="language-menu">
-      <li><a th:href="@{/?lang=pt}">🇧🇷 pt-br</a></li>
-      <li><a th:href="@{/?lang=en}">🇺🇸 en-us</a></li>
-    </ul>
-  </nav>
-</header>
+<div th:replace="fragments/header :: header"></div>
 
-<h2>Editar Usuário</h2>
+<h2 th:text="${usuario.idUsuario == null} ? 'Nova Usuario' : 'Editar Usuario'">Usuario</h2>
 
 <form th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
   <input type="hidden" th:field="*{idUsuario}" />
@@ -56,5 +36,6 @@
   <a th:href="@{/usuario/lista}" class="btn">Cancelar</a>
 </form>
 
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

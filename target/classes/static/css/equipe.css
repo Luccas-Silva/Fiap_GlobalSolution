@@ -155,3 +155,148 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    font-size: 62.5%; /* 1rem = 10px */
+    font-family: 'Montserrat', sans-serif;
+    --primary-color: #36393B;
+    --second-color: #473BF0;
+    --background-color: #E4E2DD;
+}
+
+html, body {
+    min-height: 100vh;
+}
+
+body {
+    font-size: 1.6rem;
+    background: var(--background-color);
+    color: var(--primary-color);
+    padding: 0 7rem;
+}
+
+/* HEADER */
+.header {
+    height: 10rem;
+    width: 100%;
+    margin-bottom: 5rem;
+    padding: 2.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--background-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.logo-green {
+    color: var(--second-color);
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.menu > li {
+    position: relative;
+}
+
+.menu a {
+    text-decoration: none;
+    display: block;
+    padding: 1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    border-bottom: 0.2rem solid transparent;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.menu a:hover {
+    color: var(--second-color);
+    border-bottom: 0.2rem solid var(--second-color);
+}
+
+.language-menu {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.language-menu li {
+    list-style: none;
+}
+
+.language-menu a {
+    font-size: 1.4rem;
+    text-decoration: none;
+    display: block;
+    padding: 1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    border-bottom: 0.2rem solid transparent;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+.language-menu a:hover {
+    color: var(--second-color);
+    border-bottom: 0.2rem solid var(--second-color);
+}
+
+/* FOOTER */
+footer {
+    height: 10rem;
+    width: 100%;
+    margin-top: 5rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer_list li {
+    display: inline;
+}
+.footer_list li a {
+    padding: 2rem 1rem 0.5rem 1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 0.2rem solid transparent;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+.footer_list li a:hover {
+    color: var(--second-color);
+    border-bottom: 0.2rem solid var(--second-color);
+}
+
+.footer-copyright {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+    border-top: 0.2rem solid;
+    padding: 1rem;
+}

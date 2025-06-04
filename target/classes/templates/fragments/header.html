@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link th:href="@{/css/Home.css}" rel="stylesheet"/></head>
+<body>
+<div th:fragment="header">
+  <header class="header">
+    <a class="logo" th:href="@{/}">
+      <p class="logo-green">Global</p>
+      <p>Solution</p>
+    </a>
+    <nav>
+      <ul class="menu">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/}">Sensores</a></li>
+        <li><a th:href="@{/}">Equipes</a></li>
+        <li><a th:href="@{/}">Login</a></li>
+        <li><a th:href="@{/}">GitHub</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <ul class="language-menu">
+        <li><a th:href="@{/?lang=pt}">🇧🇷 pt-br</a></li>
+        <li><a th:href="@{/?lang=en}">🇺🇸 en-us</a></li>
+      </ul>
+    </nav>
+  </header>
+</div>
+</body>
+</html>
