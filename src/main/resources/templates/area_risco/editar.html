@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title th:text="${areaRisco.idAreaRisco == null} ? 'Nova Área de Risco' : 'Editar Área de Risco'">Área de Risco</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" th:href="@{/css/AreasRisco.css}" />
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <h1 th:text="${areaRisco.idAreaRisco == null} ? 'Nova Área de Risco' : 'Editar Área de Risco'"></h1>
 <form th:action="@{/area_risco/salvar}" th:object="${areaRisco}" method="post">
   <input type="hidden" th:field="*{idAreaRisco}" />
@@ -40,5 +41,6 @@
     <a th:href="@{/area_risco/lista}">Cancelar</a>
   </div>
 </form>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

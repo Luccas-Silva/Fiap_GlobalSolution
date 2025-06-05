@@ -15,6 +15,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    // Liberar acesso para a Home e (Sensores e Equipes) com restrisao de usuario somente visualisasao de dados
+    // Acesso por login de usuarios para Usuario, Equipes, Sensor, AreaRisco e Alerta sem restrisosis
+    // Admin e Devs com Acesso liberado para qualquer endpoind
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

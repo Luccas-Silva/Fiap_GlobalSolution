@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Áreas de Risco</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" th:href="@{/css/AreasRisco.css}" />
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <h1>Áreas de Risco</h1>
 <a th:href="@{/area_risco/novo}">Nova Área de Risco</a>
 <br/><br/>
@@ -13,7 +14,6 @@
 <table border="1">
   <thead>
   <tr>
-    <th>ID</th>
     <th>Nome</th>
     <th>Tipo de Risco</th>
     <th>Latitude</th>
@@ -24,7 +24,6 @@
   </thead>
   <tbody>
   <tr th:each="areaRisco : ${areasRisco}">
-    <td th:text="${areaRisco.idAreaRisco}"></td>
     <td th:text="${areaRisco.nomeArea}"></td>
     <td th:text="${areaRisco.tipoRisco}"></td>
     <td th:text="${areaRisco.latitude}"></td>
@@ -38,5 +37,6 @@
   </tr>
   </tbody>
 </table>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
