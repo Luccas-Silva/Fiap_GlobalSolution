@@ -47,9 +47,9 @@
 
 <div th:each="equipe : ${equipes}">
   <div class="card">
-    Nome da Equipe:<b th:text="${equipe.nomeEquipe}">Nome da Equipe</b>
+    Nome da Equipe:<b th:text="${equipe.nomeEquipe}"> Nome da Equipe</b>
     <br>
-    Historico de alertas: 
+    Historico de alertas:
     <span class="alert-count-badge"
           th:text="${alertasAtendidosPorEquipe[equipe.idEquipe]} + ' alertas'">
         0 alertas

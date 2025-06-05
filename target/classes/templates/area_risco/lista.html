@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Áreas de Risco</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Áreas de Risco</h1>
+<a th:href="@{/area_risco/novo}">Nova Área de Risco</a>
+<br/><br/>
+<div th:if="${mensagem}" style="color:green" th:text="${mensagem}"></div>
+<div th:if="${erro}" style="color:red" th:text="${erro}"></div>
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Tipo de Risco</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Status</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="areaRisco : ${areasRisco}">
+    <td th:text="${areaRisco.idAreaRisco}"></td>
+    <td th:text="${areaRisco.nomeArea}"></td>
+    <td th:text="${areaRisco.tipoRisco}"></td>
+    <td th:text="${areaRisco.latitude}"></td>
+    <td th:text="${areaRisco.longitude}"></td>
+    <td th:text="${areaRisco.statusArea}"></td>
+    <td>
+      <a th:href="@{'/area_risco/editar/' + ${areaRisco.idAreaRisco}}">Editar</a> |
+      <a th:href="@{'/area_risco/deletar/' + ${areaRisco.idAreaRisco}}"
+         onclick="return confirm('Tem certeza que deseja deletar esta área de risco?');">Deletar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

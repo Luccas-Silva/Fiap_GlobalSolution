@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${areaRisco.idAreaRisco == null} ? 'Nova Área de Risco' : 'Editar Área de Risco'">Área de Risco</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1 th:text="${areaRisco.idAreaRisco == null} ? 'Nova Área de Risco' : 'Editar Área de Risco'"></h1>
+<form th:action="@{/area_risco/salvar}" th:object="${areaRisco}" method="post">
+  <input type="hidden" th:field="*{idAreaRisco}" />
+  <div>
+    <label for="nomeArea">Nome:</label>
+    <input type="text" id="nomeArea" th:field="*{nomeArea}" required />
+  </div>
+  <div>
+    <label for="tipoRisco">Tipo de Risco:</label>
+    <input type="text" id="tipoRisco" th:field="*{tipoRisco}" required />
+  </div>
+  <div>
+    <label for="latitude">Latitude:</label>
+    <input type="number" step="any" id="latitude" th:field="*{latitude}" required />
+  </div>
+  <div>
+    <label for="longitude">Longitude:</label>
+    <input type="number" step="any" id="longitude" th:field="*{longitude}" required />
+  </div>
+  <div>
+    <label for="descricao">Descrição:</label>
+    <textarea id="descricao" th:field="*{descricao}" rows="3"></textarea>
+  </div>
+  <div>
+    <label for="statusArea">Status:</label>
+    <select id="statusArea" th:field="*{statusArea}">
+      <option value="Ativa">Ativa</option>
+      <option value="Inativa">Inativa</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit">Salvar</button>
+    <a th:href="@{/area_risco/lista}">Cancelar</a>
+  </div>
+</form>
+</body>
+</html>
