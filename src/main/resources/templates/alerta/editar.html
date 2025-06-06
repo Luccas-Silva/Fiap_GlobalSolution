@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${alerta.idAlerta == null} ? 'Novo Alerta' : 'Editar Alerta'">Alerta</title>
+  <link rel="stylesheet" th:href="@{/css/Alertas.css}" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h1 th:text="${alerta.idAlerta == null} ? 'Novo Alerta' : 'Editar Alerta'"></h1>
+<form th:action="@{/alerta/salvar}" th:object="${alerta}" method="post">
+  <input type="hidden" th:field="*{idAlerta}" />
+  <div>
+    <label for="nomeTipoAlerta">Tipo de Alerta:</label>
+    <input type="text" id="nomeTipoAlerta" th:field="*{nomeTipoAlerta}" required />
+  </div>
+  <div>
+    <label for="descricaoTipoAlerta">Descrição:</label>
+    <textarea id="descricaoTipoAlerta" th:field="*{descricaoTipoAlerta}" rows="2"></textarea>
+  </div>
+  <div>
+    <label for="nivelGravidadeAlerta">Nível Gravidade:</label>
+    <input type="number" id="nivelGravidadeAlerta" th:field="*{nivelGravidadeAlerta}" min="1" max="10" />
+  </div>
+  <div>
+    <label for="dataGeracao">Data Geração:</label>
+    <input type="date" id="dataGeracao" th:field="*{dataGeracao}" />
+  </div>
+  <div>
+    <label for="mensagem">Mensagem:</label>
+    <input type="text" id="mensagem" th:field="*{mensagem}" />
+  </div>
+  <div>
+    <label for="statusAlerta">Status:</label>
+    <select id="statusAlerta" th:field="*{statusAlerta}">
+      <option value="Ativo">Ativo</option>
+      <option value="Encerrado">Encerrado</option>
+      <option value="Pendente">Pendente</option>
+    </select>
+  </div>
+  <div>
+    <label for="valorGatilho">Valor Gatilho:</label>
+    <input type="number" step="any" id="valorGatilho" th:field="*{valorGatilho}" />
+  </div>
+  <div>
+    <label for="dataInicioAtuacao">Data/Hora Início Atuação:</label>
+    <input type="datetime-local" id="dataInicioAtuacao" th:field="*{dataInicioAtuacao}" />
+  </div>
+  <div>
+    <label for="dataFimAtuacao">Data/Hora Fim Atuação:</label>
+    <input type="datetime-local" id="dataFimAtuacao" th:field="*{dataFimAtuacao}" />
+  </div>
+  <div>
+    <label for="observacaoAtuacao">Observação da Atuação:</label>
+    <textarea id="observacaoAtuacao" th:field="*{observacaoAtuacao}" rows="2"></textarea>
+  </div>
+  <div>
+    <label for="areaRisco">Área de Risco:</label>
+    <select id="areaRisco" th:field="*{areaRisco.idAreaRisco}">
+      <option value="" th:text="'Selecione uma área'"></option>
+      <option th:each="area : ${areasRisco}"
+              th:value="${area.idAreaRisco}"
+              th:text="${area.nomeArea}"
+              th:selected="${alerta.areaRisco != null and alerta.areaRisco.idAreaRisco == area.idAreaRisco}">
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="equipeResposta">Equipe de Resposta:</label>
+    <select id="equipeResposta" th:field="*{equipeResposta.idEquipe}">
+      <option value="" th:text="'Selecione uma equipe'"></option>
+      <option th:each="equipe : ${equipesResposta}"
+              th:value="${equipe.idEquipe}"
+              th:text="${equipe.nomeEquipe}"
+              th:selected="${alerta.equipeResposta != null and alerta.equipeResposta.idEquipe == equipe.idEquipe}">
+      </option>
+    </select>
+  </div>
+  <div>
+    <button type="submit">Salvar</button>
+    <a th:href="@{/alerta/lista}">Cancelar</a>
+  </div>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

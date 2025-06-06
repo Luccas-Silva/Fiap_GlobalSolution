@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${sensor.idSensor == null} ? 'Novo Sensor' : 'Editar Sensor'">Sensor</title>
+  <link rel="stylesheet" th:href="@{/css/Sensores.css}" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h1 th:text="${sensor.idSensor == null} ? 'Novo Sensor' : 'Editar Sensor'"></h1>
+<form th:action="@{/sensor/salvar}" th:object="${sensor}" method="post">
+  <input type="hidden" th:field="*{idSensor}" />
+  <div>
+    <label for="tipoSensor">Tipo:</label>
+    <input type="text" id="tipoSensor" th:field="*{tipoSensor}" required />
+  </div>
+  <div>
+    <label for="marca">Marca:</label>
+    <input type="text" id="marca" th:field="*{marca}" required />
+  </div>
+  <div>
+    <label for="localizacao">Localização:</label>
+    <input type="text" id="localizacao" th:field="*{localizacao}" required />
+  </div>
+  <div>
+    <label for="unidadeMedida">Unidade de Medida:</label>
+    <input type="text" id="unidadeMedida" th:field="*{unidadeMedida}" required />
+  </div>
+  <div>
+    <label for="dataInstalacao">Data de Instalação:</label>
+    <input type="date" id="dataInstalacao" th:field="*{dataInstalacao}" />
+  </div>
+  <div>
+    <label for="statusSensor">Status:</label>
+    <select id="statusSensor" th:field="*{statusSensor}">
+      <option value="Ativo">Ativo</option>
+      <option value="Inativo">Inativo</option>
+    </select>
+  </div>
+  <div>
+    <label for="valorLidoSensor">Valor Lido:</label>
+    <input type="number" step="any" id="valorLidoSensor" th:field="*{valorLidoSensor}" />
+  </div>
+  <div>
+    <label for="dataHoraLeituraSensor">Data/Hora da Leitura:</label>
+    <input type="datetime-local" id="dataHoraLeituraSensor" th:field="*{dataHoraLeituraSensor}" />
+  </div>
+  <div>
+    <label for="areaRisco">Área de Risco:</label>
+    <select id="areaRisco" th:field="*{areaRisco.idAreaRisco}">
+      <option value="" th:text="'Selecione uma área'"></option>
+      <option th:each="area : ${areasRisco}"
+              th:value="${area.idAreaRisco}"
+              th:text="${area.nomeArea}"
+              th:selected="${sensor.areaRisco != null and sensor.areaRisco.idAreaRisco == area.idAreaRisco}">
+      </option>
+    </select>
+  </div>
+  <div>
+    <button type="submit">Salvar</button>
+    <a th:href="@{/sensor/lista}">Cancelar</a>
+  </div>
+</form>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

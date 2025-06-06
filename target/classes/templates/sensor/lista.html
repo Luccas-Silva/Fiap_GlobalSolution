@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Sensores</title>
+  <link rel="stylesheet" th:href="@{/css/Sensores.css}" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h1>Sensores</h1>
+<a th:href="@{/sensor/novo}">Novo Sensor</a>
+<br/><br/>
+<div th:if="${mensagem}" style="color:green" th:text="${mensagem}"></div>
+<div th:if="${erro}" style="color:red" th:text="${erro}"></div>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Tipo</th>
+    <th>Marca</th>
+    <th>Localização</th>
+    <th>Unidade de Medida</th>
+    <th>Status</th>
+    <th>Área de Risco</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="sensor : ${sensores}">
+    <td th:text="${sensor.tipoSensor}"></td>
+    <td th:text="${sensor.marca}"></td>
+    <td th:text="${sensor.localizacao}"></td>
+    <td th:text="${sensor.unidadeMedida}"></td>
+    <td th:text="${sensor.statusSensor}"></td>
+    <td th:text="${sensor.areaRisco != null ? sensor.areaRisco.nomeArea : 'Sem área'}"></td>
+    <td>
+      <a th:href="@{'/sensor/editar/' + ${sensor.idSensor}}">Editar</a> |
+      <a th:href="@{'/sensor/deletar/' + ${sensor.idSensor}}"
+         onclick="return confirm('Tem certeza que deseja deletar este sensor?');">Deletar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
