@@ -29,6 +29,9 @@
 
 <a class="btn" th:href="@{/sensor/novo}">Novo Sensor</a>
 
+<div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+<div th:if="${erro}" class="erro" th:text="${erro}"></div>
+
 <div th:each="sensor : ${sensores}">
   <div class="card">
     <b th:text="${sensor.tipoSensor}">Tipo do Sensor</b>
@@ -47,19 +50,17 @@
 
     <div class="card-actions">
       <a th:href="@{|/sensor/editar/${sensor.idSensor}|}">Editar</a>
-      <form th:action="@{|/sensor/remover/${sensor.idSensor}|}" method="post" onsubmit="return confirm('Tem certeza que deseja remover este sensor?');">
+      <form th:action="@{|/sensor/remover/${sensor.idSensor}|}" method="post" onsubmit="return confirm('Tem certeza que deseja remover este sensor?');" style="display:inline;">
         <button type="submit" class="btn-delete">Deletar</button>
       </form>
     </div>
 
-    <!-- Botão para mostrar/ocultar alertas -->
     <button class="toggle-btn" type="button"
             th:id="'btn-alerta-' + ${sensor.idSensor}"
             th:onclick="'toggleDiv(\'alertas-' + ${sensor.idSensor} + '\', \'btn-alerta-' + ${sensor.idSensor} + '\', \'Mostrar Alertas\', \'Ocultar Alertas\')'">
       Mostrar Alertas
     </button>
 
-    <!-- Lista de alertas escondida por padrão -->
     <div class="alertas-lista" th:id="'alertas-' + ${sensor.idSensor}">
       <b>Alertas deste sensor:</b>
       <ul>

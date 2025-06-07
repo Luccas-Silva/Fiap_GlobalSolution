@@ -82,8 +82,19 @@ public class SensorController {
         return "sensor/editar";
     }
 
-    @GetMapping("/remover/{id}")
+    @PostMapping("/remover/{id}")
     public String removerSensor(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        if (sensorRepository.existsById(id)) {
+            sensorRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("mensagem", "Sensor removido com sucesso.");
+        } else {
+            redirectAttributes.addFlashAttribute("erro", "Sensor não encontrado.");
+        }
+        return "redirect:/sensor/lista";
+    }
+
+    @GetMapping("/deletar/{id}")
+    public String deletarSensor(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         if (sensorRepository.existsById(id)) {
             sensorRepository.deleteById(id);
             redirectAttributes.addFlashAttribute("mensagem", "Sensor deletado com sucesso.");
@@ -92,5 +103,4 @@ public class SensorController {
         }
         return "redirect:/sensor/lista";
     }
-
 }

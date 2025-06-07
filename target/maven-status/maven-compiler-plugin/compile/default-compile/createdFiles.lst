@@ -1,0 +1,5 @@
+com\fiap\Java_GlobalSolution\model\Alerta$AlertaBuilder.class
+com\fiap\Java_GlobalSolution\model\Sensor$SensorBuilder.class
+com\fiap\Java_GlobalSolution\model\Usuario$UsuarioBuilder.class
+com\fiap\Java_GlobalSolution\model\EquipeResposta$EquipeRespostaBuilder.class
+com\fiap\Java_GlobalSolution\model\AreaRisco$AreaRiscoBuilder.class
