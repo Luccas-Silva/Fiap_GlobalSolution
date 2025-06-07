@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><link th:href="@{/css/Home.css}" rel="stylesheet"/></head>
+<head>
+  <link th:href="@{/css/Home.css}" rel="stylesheet"/>
+</head>
 <body>
 <div th:fragment="header">
   <header class="header">
@@ -13,7 +15,19 @@
         <li><a th:href="@{/}">Home</a></li>
         <li><a th:href="@{/sensor/lista}">Sensores</a></li>
         <li><a th:href="@{/equipe/lista}">Equipes</a></li>
-        <li><a th:href="@{/}">Login</a></li>
+        <!-- Só mostra se o usuário estiver autenticado -->
+        <li th:if="${#authorization.expression('isAuthenticated()')}"><a th:href="@{/usuario/lista}">Usuários</a></li>
+        <li th:if="${#authorization.expression('isAuthenticated()')}"><a th:href="@{/area_risco/lista}">Áreas de Risco</a></li>
+        <li th:if="${#authorization.expression('isAuthenticated()')}"><a th:href="@{/alerta/lista}">Alertas</a></li>
+        <!-- Login -->
+        <li th:if="${#authorization.expression('isAnonymous()')}">
+          <a th:href="@{/login}">Login</a>
+        </li>
+        <!-- Logout estilizado igual ao Login -->
+        <li th:if="${#authorization.expression('isAuthenticated()')}">
+          <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+          <form id="logout-form" th:action="@{/logout}" method="post" style="display:none;"></form>
+        </li>
         <li><a th:href="@{https://github.com/Luccas-Silva/Fiap_GlobalSolution_Java}" target="_blank">GitHub</a></li>
       </ul>
     </nav>

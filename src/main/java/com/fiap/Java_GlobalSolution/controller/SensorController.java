@@ -1,7 +1,9 @@
 package com.fiap.Java_GlobalSolution.controller;
 
+import com.fiap.Java_GlobalSolution.model.Alerta;
 import com.fiap.Java_GlobalSolution.model.AreaRisco;
 import com.fiap.Java_GlobalSolution.model.Sensor;
+import com.fiap.Java_GlobalSolution.repository.AlertaRepository;
 import com.fiap.Java_GlobalSolution.repository.AreaRiscoRepository;
 import com.fiap.Java_GlobalSolution.repository.SensorRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -21,15 +26,26 @@ public class SensorController {
 
     private final SensorRepository sensorRepository;
     private final AreaRiscoRepository areaRiscoRepository;
+    private final AlertaRepository alertaRepository;
 
-    public SensorController(SensorRepository sensorRepository, AreaRiscoRepository areaRiscoRepository) {
+    public SensorController(SensorRepository sensorRepository, AreaRiscoRepository areaRiscoRepository, AlertaRepository alertaRepository) {
         this.sensorRepository = sensorRepository;
         this.areaRiscoRepository = areaRiscoRepository;
+        this.alertaRepository = alertaRepository;
     }
 
     @GetMapping("/lista")
     public String listaSensor(Model model) {
-        model.addAttribute("sensores", sensorRepository.findAll());
+        List<Sensor> sensores = sensorRepository.findAll();
+        Map<Integer, List<Alerta>> alertasPorSensor = new HashMap<>();
+
+        for (Sensor sensor : sensores) {
+            List<Alerta> alertas = alertaRepository.findBySensor_IdSensor(sensor.getIdSensor());
+            alertasPorSensor.put(sensor.getIdSensor(), alertas);
+        }
+
+        model.addAttribute("sensores", sensores);
+        model.addAttribute("alertasPorSensor", alertasPorSensor);
         return "sensor/lista";
     }
 
@@ -66,8 +82,8 @@ public class SensorController {
         return "sensor/editar";
     }
 
-    @GetMapping("/deletar/{id}")
-    public String deletarSensor(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+    @GetMapping("/remover/{id}")
+    public String removerSensor(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         if (sensorRepository.existsById(id)) {
             sensorRepository.deleteById(id);
             redirectAttributes.addFlashAttribute("mensagem", "Sensor deletado com sucesso.");

@@ -4,6 +4,8 @@ INSERT INTO AREA_RISCO (NOME_AREA, TIPO_RISCO, LATITUDE, LONGITUDE, DESCRICAO, S
   ('Centro Antigo', 'Desabamento', -23.54, -46.63, 'Prédios antigos com risco estrutural', 'Ativo');
 
 INSERT INTO USUARIO (NOME, EMAIL, TELEFONE, CARGO, SENHA, ATIVO) VALUES
+  ('Administrador',   'admin',   '', 'ADMIN', 'admin', 'S'),
+  ('Desenvolvedor',   'dev',   '', 'DEV', 'dev', 'S'),
   ('João Silva',   'joao.silva@email.com',   '11999990001', 'Coordenador', 'senha1', 'S'),
   ('Maria Souza',  'maria.souza@email.com',  '11999990002', 'Técnica',     'senha2', 'S'),
   ('Carlos Pereira','carlos.pereira@email.com','11999990003','Supervisor',  'senha3', 'S');

@@ -21,17 +21,46 @@
     .toggle-btn:hover {
       background: #2045b3;
     }
+    /* Formulário de adicionar integrante inline quando aberto */
+    .form-integrante.inline-form {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 10px;
+      padding: 0;
+      background: none;
+      box-shadow: none;
+    }
+    .form-integrante.inline-form label {
+      margin: 0;
+      display: inline;
+      font-weight: normal;
+    }
+    .form-integrante.inline-form input[type="text"],
+    .form-integrante.inline-form select {
+      width: auto;
+      padding: 0.5rem 1rem;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .form-integrante.inline-form button {
+      margin: 0;
+      font-size: 1.5rem;
+      padding: 0.5rem 1.5rem;
+    }
   </style>
   <script>
-    function toggleDiv(divId, btnId, labelMostrar, labelOcultar) {
+    function toggleDiv(divId, btnId, labelMostrar, labelOcultar, addInlineClass = false) {
       const div = document.getElementById(divId);
       const btn = document.getElementById(btnId);
       if (div.style.display === "none") {
-        div.style.display = "block";
+        div.style.display = "flex";
         btn.innerText = labelOcultar;
+        if (addInlineClass) div.classList.add('inline-form');
       } else {
         div.style.display = "none";
         btn.innerText = labelMostrar;
+        if (addInlineClass) div.classList.remove('inline-form');
       }
     }
   </script>
@@ -68,15 +97,16 @@
     <!-- Botão para mostrar/ocultar formulário de adicionar integrante -->
     <button class="toggle-btn" type="button"
             th:id="'btn-form-' + ${equipe.idEquipe}"
-            th:onclick="'toggleDiv(\'form-' + ${equipe.idEquipe} + '\', \'btn-form-' + ${equipe.idEquipe} + '\', \'Adicionar Integrante\', \'Ocultar Formulário\')'">
+            th:onclick="'toggleDiv(\'form-' + ${equipe.idEquipe} + '\', \'btn-form-' + ${equipe.idEquipe} + '\', \'Adicionar Integrante\', \'Ocultar Formulário\', true)'">
       Adicionar Integrante
     </button>
 
-    <!-- Formulário escondido por padrão -->
+    <!-- Formulário escondido por padrão, inline quando visível -->
     <form th:id="'form-' + ${equipe.idEquipe}"
           class="form-integrante"
           th:action="@{'/equipe/' + ${equipe.idEquipe} + '/adicionar-integrante'}"
-          method="post">
+          method="post"
+          style="display:none;">
       <label>Integrante:</label>
       <select name="idUsuario" required>
         <option th:each="usuario : ${usuariosDisponiveis}"
@@ -105,7 +135,6 @@
           <span th:if="${usuario.cargo != null}">(<b th:text="${usuario.cargo}">Cargo</b>)</span>
           - <span th:text="${usuario.email}">Email</span>
           <span>
-              <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}">Editar</a>
               <a th:href="@{|/equipe/${equipe.idEquipe}/remover-integrante/${usuario.idUsuario}|}"
                  onclick="return confirm('Remover este integrante da equipe?');">Remover</a>
             </span>

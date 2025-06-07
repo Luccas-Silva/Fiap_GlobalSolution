@@ -34,12 +34,16 @@ public class Alerta {
     @JoinColumn(name = "idEquipe")
     private EquipeResposta equipeResposta;
 
+    @ManyToOne
+    @JoinColumn(name = "idSensor")
+    private Sensor sensor;
+
     public Alerta() {
     }
     public Alerta(Integer idAlerta, String nomeTipoAlerta, String descricaoTipoAlerta, Integer nivelGravidadeAlerta,
                   LocalDate dataGeracao, String mensagem, String statusAlerta, Double valorGatilho,
                   LocalDateTime dataInicioAtuacao, LocalDateTime dataFimAtuacao, String observacaoAtuacao,
-                  AreaRisco areaRisco, EquipeResposta equipeResposta) {
+                  AreaRisco areaRisco, EquipeResposta equipeResposta, Sensor sensor) {
         this.idAlerta = idAlerta;
         this.nomeTipoAlerta = nomeTipoAlerta;
         this.descricaoTipoAlerta = descricaoTipoAlerta;
@@ -53,6 +57,7 @@ public class Alerta {
         this.observacaoAtuacao = observacaoAtuacao;
         this.areaRisco = areaRisco;
         this.equipeResposta = equipeResposta;
+        this.sensor = sensor;
     }
 
     public Integer getIdAlerta() {
@@ -145,6 +150,9 @@ public class Alerta {
     public void setEquipeResposta(EquipeResposta equipeResposta) {
         this.equipeResposta = equipeResposta;
     }
+
+    public Sensor getSensor() {return sensor;}
+    public void setSensor(Sensor sensor) {this.sensor = sensor;}
 
     @Override
     public String toString() {

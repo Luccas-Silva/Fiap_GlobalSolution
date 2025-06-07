@@ -2,43 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Sensores</title>
-  <link rel="stylesheet" th:href="@{/css/Sensores.css}" />
+  <link rel="stylesheet" th:href="@{/css/equipe.css}" />
+  <style>
+    .alertas-lista { display: none; margin-top: 10px; }
+    .toggle-btn { margin-top: 10px; background: #2d5be3; color: white; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; }
+    .toggle-btn:hover { background: #2045b3; }
+    .card { margin-bottom: 2rem; }
+  </style>
+  <script>
+    function toggleDiv(divId, btnId, labelMostrar, labelOcultar) {
+      const div = document.getElementById(divId);
+      const btn = document.getElementById(btnId);
+      if (div.style.display === "none") {
+        div.style.display = "block";
+        btn.innerText = labelOcultar;
+      } else {
+        div.style.display = "none";
+        btn.innerText = labelMostrar;
+      }
+    }
+  </script>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h1>Sensores</h1>
-<a th:href="@{/sensor/novo}">Novo Sensor</a>
-<br/><br/>
-<div th:if="${mensagem}" style="color:green" th:text="${mensagem}"></div>
-<div th:if="${erro}" style="color:red" th:text="${erro}"></div>
-<table border="1">
-  <thead>
-  <tr>
-    <th>Tipo</th>
-    <th>Marca</th>
-    <th>Localização</th>
-    <th>Unidade de Medida</th>
-    <th>Status</th>
-    <th>Área de Risco</th>
-    <th>Ações</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="sensor : ${sensores}">
-    <td th:text="${sensor.tipoSensor}"></td>
-    <td th:text="${sensor.marca}"></td>
-    <td th:text="${sensor.localizacao}"></td>
-    <td th:text="${sensor.unidadeMedida}"></td>
-    <td th:text="${sensor.statusSensor}"></td>
-    <td th:text="${sensor.areaRisco != null ? sensor.areaRisco.nomeArea : 'Sem área'}"></td>
-    <td>
-      <a th:href="@{'/sensor/editar/' + ${sensor.idSensor}}">Editar</a> |
-      <a th:href="@{'/sensor/deletar/' + ${sensor.idSensor}}"
-         onclick="return confirm('Tem certeza que deseja deletar este sensor?');">Deletar</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<h2>Sensores</h2>
+
+<a class="btn" th:href="@{/sensor/novo}">Novo Sensor</a>
+
+<div th:each="sensor : ${sensores}">
+  <div class="card">
+    <b th:text="${sensor.tipoSensor}">Tipo do Sensor</b>
+    <br>
+    Marca: <span th:text="${sensor.marca}">Marca</span> <br/>
+    Localização: <span th:text="${sensor.localizacao}">Localização</span> <br/>
+    Unidade de Medida: <span th:text="${sensor.unidadeMedida}">Unidade</span> <br/>
+    Status: <span th:text="${sensor.statusSensor}">Status</span> <br/>
+    Valor Lido: <span th:text="${sensor.valorLidoSensor}">Valor</span> <br/>
+    Data/Hora Leitura:
+    <span th:text="${sensor.dataHoraLeituraSensor != null ? #temporals.format(sensor.dataHoraLeituraSensor, 'dd/MM/yyyy HH:mm') : '-'}">Data/Hora</span> <br/>
+    Data de Instalação:
+    <span th:text="${sensor.dataInstalacao != null ? #temporals.format(sensor.dataInstalacao, 'dd/MM/yyyy') : '-'}">Data Instalação</span> <br/>
+    Área de Risco:
+    <span th:text="${sensor.areaRisco != null ? sensor.areaRisco.nomeArea : 'Sem área'}">Área de Risco</span> <br/>
+
+    <div class="card-actions">
+      <a th:href="@{|/sensor/editar/${sensor.idSensor}|}">Editar</a>
+      <form th:action="@{|/sensor/remover/${sensor.idSensor}|}" method="post" onsubmit="return confirm('Tem certeza que deseja remover este sensor?');">
+        <button type="submit" class="btn-delete">Deletar</button>
+      </form>
+    </div>
+
+    <!-- Botão para mostrar/ocultar alertas -->
+    <button class="toggle-btn" type="button"
+            th:id="'btn-alerta-' + ${sensor.idSensor}"
+            th:onclick="'toggleDiv(\'alertas-' + ${sensor.idSensor} + '\', \'btn-alerta-' + ${sensor.idSensor} + '\', \'Mostrar Alertas\', \'Ocultar Alertas\')'">
+      Mostrar Alertas
+    </button>
+
+    <!-- Lista de alertas escondida por padrão -->
+    <div class="alertas-lista" th:id="'alertas-' + ${sensor.idSensor}">
+      <b>Alertas deste sensor:</b>
+      <ul>
+        <li th:each="alerta : ${alertasPorSensor[sensor.idSensor]}">
+          <span th:text="${alerta.nomeTipoAlerta}">Tipo</span> -
+          <span th:text="${alerta.nivelGravidadeAlerta}">Gravidade</span> -
+          <span th:text="${alerta.dataGeracao != null ? #temporals.format(alerta.dataGeracao, 'dd/MM/yyyy') : '-'}">Data</span> -
+          <span th:text="${alerta.statusAlerta}">Status</span>
+          <a th:href="@{|/alerta/editar/${alerta.idAlerta}|}">Ver detalhes</a>
+        </li>
+        <li th:if="${#lists.isEmpty(alertasPorSensor[sensor.idSensor])}" style="color:#888;">Nenhum alerta para este sensor.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

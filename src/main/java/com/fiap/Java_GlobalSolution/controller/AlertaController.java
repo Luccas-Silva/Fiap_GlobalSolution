@@ -1,9 +1,11 @@
 package com.fiap.Java_GlobalSolution.controller;
 
 import com.fiap.Java_GlobalSolution.model.Alerta;
+import com.fiap.Java_GlobalSolution.model.Sensor;
 import com.fiap.Java_GlobalSolution.repository.AlertaRepository;
 import com.fiap.Java_GlobalSolution.repository.AreaRiscoRepository;
 import com.fiap.Java_GlobalSolution.repository.EquipeRespostaRepository;
+import com.fiap.Java_GlobalSolution.repository.SensorRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -21,11 +26,13 @@ public class AlertaController {
     private final AlertaRepository alertaRepository;
     private final AreaRiscoRepository areaRiscoRepository;
     private final EquipeRespostaRepository equipeRespostaRepository;
+    private final SensorRepository sensorRepository;
 
-    public AlertaController(AlertaRepository alertaRepository, AreaRiscoRepository areaRiscoRepository, EquipeRespostaRepository equipeRespostaRepository) {
+    public AlertaController(AlertaRepository alertaRepository, AreaRiscoRepository areaRiscoRepository, EquipeRespostaRepository equipeRespostaRepository, SensorRepository sensorRepository) {
         this.alertaRepository = alertaRepository;
         this.areaRiscoRepository = areaRiscoRepository;
         this.equipeRespostaRepository = equipeRespostaRepository;
+        this.sensorRepository = sensorRepository;
     }
 
     @GetMapping("/lista")

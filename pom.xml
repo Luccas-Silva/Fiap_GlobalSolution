@@ -113,6 +113,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>12.6.1.jre11</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -139,6 +144,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+
 				</configuration>
 			</plugin>
 		</plugins>
