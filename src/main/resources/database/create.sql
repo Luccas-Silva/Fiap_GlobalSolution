@@ -1,33 +1,162 @@
+-- ÁREAS DE RISCO
 INSERT INTO AREA_RISCO (NOME_AREA, TIPO_RISCO, LATITUDE, LONGITUDE, DESCRICAO, STATUS_AREA) VALUES
-  ('Zona Leste', 'Incêndio', -23.55, -46.60, 'Área industrial com risco de incêndio', 'Ativo'),
-  ('Zona Norte', 'Inundação', -23.50, -46.62, 'Área residencial sujeita a enchentes', 'Ativo'),
-  ('Centro Antigo', 'Desabamento', -23.54, -46.63, 'Prédios antigos com risco estrutural', 'Ativo');
+  ('Zona Leste', 'Incendio', -23.55, -46.60, 'Area industrial com risco de incendio', 'Ativo'),
+  ('Zona Norte', 'Inundacao', -23.50, -46.62, 'Area residencial sujeita a enchentes', 'Ativo'),
+  ('Centro Antigo', 'Desabamento', -23.54, -46.63, 'Predios antigos com risco estrutural', 'Ativo'),
+  ('SP Leste Especial', 'Incendio', -23.60, -46.55, 'Área exclusiva da equipe SP Leste', 'Ativo');
 
+-- USUÁRIOS
 INSERT INTO USUARIO (NOME, EMAIL, TELEFONE, CARGO, SENHA, ATIVO) VALUES
   ('Administrador',   'admin',   '', 'ADMIN', 'admin', 'S'),
   ('Desenvolvedor',   'dev',   '', 'DEV', 'dev', 'S'),
-  ('João Silva',   'joao.silva@email.com',   '11999990001', 'Coordenador', 'senha1', 'S'),
-  ('Maria Souza',  'maria.souza@email.com',  '11999990002', 'Técnica',     'senha2', 'S'),
-  ('Carlos Pereira','carlos.pereira@email.com','11999990003','Supervisor',  'senha3', 'S');
+  -- MG Norte
+  ('Ana Lima', 'ana.lima@mg.com', '31999990011', 'Tecnica', 'senha4', 'S'),
+  ('Bruno Souza', 'bruno.souza@mg.com', '31999990012', 'Supervisor', 'senha5', 'S'),
+  ('Clara Alves', 'clara.alves@mg.com', '31999990013', 'Coordenador', 'senha6', 'S'),
+  -- MG Sul
+  ('Daniela Ramos', 'daniela.ramos@mg.com', '31999990014', 'Tecnica', 'senha7', 'S'),
+  ('Eduardo Castro', 'eduardo.castro@mg.com', '31999990015', 'Supervisor', 'senha8', 'S'),
+  ('Fernanda Dias', 'fernanda.dias@mg.com', '31999990016', 'Coordenador', 'senha9', 'S'),
+  -- RJ Capital
+  ('Gabriel Lima', 'gabriel.lima@rj.com', '21999990011', 'Tecnico', 'senha10', 'S'),
+  ('Helena Souza', 'helena.souza@rj.com', '21999990012', 'Supervisor', 'senha11', 'S'),
+  ('Igor Alves', 'igor.alves@rj.com', '21999990013', 'Coordenador', 'senha12', 'S'),
+  -- RJ Interior
+  ('Juliana Ramos', 'juliana.ramos@rj.com', '21999990014', 'Tecnica', 'senha13', 'S'),
+  ('Kleber Castro', 'kleber.castro@rj.com', '21999990015', 'Supervisor', 'senha14', 'S'),
+  ('Larissa Dias', 'larissa.dias@rj.com', '21999990016', 'Coordenadora', 'senha15', 'S'),
+  -- SP Norte
+  ('Marcos Lima', 'marcos.lima@sp.com', '11999990011', 'Tecnico', 'senha16', 'S'),
+  ('Natalia Souza', 'natalia.souza@sp.com', '11999990012', 'Supervisora', 'senha17', 'S'),
+  ('Otavio Alves', 'otavio.alves@sp.com', '11999990013', 'Coordenador', 'senha18', 'S'),
+  -- SP Sul
+  ('Patricia Ramos', 'patricia.ramos@sp.com', '11999990014', 'Tecnica', 'senha19', 'S'),
+  ('Quirino Castro', 'quirino.castro@sp.com', '11999990015', 'Supervisor', 'senha20', 'S'),
+  ('Rafaela Dias', 'rafaela.dias@sp.com', '11999990016', 'Coordenadora', 'senha21', 'S'),
+  -- SP Leste
+  ('Samuel Lima', 'samuel.lima@sp.com', '11999990017', 'Tecnico', 'senha22', 'S'),
+  ('Tatiane Souza', 'tatiane.souza@sp.com', '11999990018', 'Supervisora', 'senha23', 'S'),
+  ('Ubirajara Alves', 'ubirajara.alves@sp.com', '11999990019', 'Coordenador', 'senha24', 'S');
 
+-- EQUIPES DE RESPOSTA
 INSERT INTO EQUIPE_RESPOSTA (NOME_EQUIPE, AREA_ATUACAO, CONTATO) VALUES
-  ('Alfa', 'Zona Leste', '11988880001');
+  ('Equipe MG Norte',  'Minas Gerais - Norte',  '31999990001'),
+  ('Equipe MG Sul',    'Minas Gerais - Sul',    '31999990002'),
+  ('Equipe RJ Capital',  'Rio de Janeiro - Capital',  '21999990001'),
+  ('Equipe RJ Interior', 'Rio de Janeiro - Interior', '22999990002'),
+  ('Equipe SP Norte', 'São Paulo - Zona Norte', '11999990001'),
+  ('Equipe SP Sul',   'São Paulo - Zona Sul',   '11999990002'),
+  ('Equipe SP Leste', 'São Paulo - Zona Leste', '11999990003');
 
+-- RELACIONAMENTOS EQUIPE-USUÁRIO (3 usuários para cada equipe)
+-- MG Norte
+INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO) VALUES
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe MG Norte'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'ana.lima@mg.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe MG Norte'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'bruno.souza@mg.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe MG Norte'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'clara.alves@mg.com'));
+-- MG Sul
+INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO) VALUES
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe MG Sul'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'daniela.ramos@mg.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe MG Sul'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'eduardo.castro@mg.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe MG Sul'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'fernanda.dias@mg.com'));
+-- RJ Capital
+INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO) VALUES
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe RJ Capital'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'gabriel.lima@rj.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe RJ Capital'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'helena.souza@rj.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe RJ Capital'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'igor.alves@rj.com'));
+-- RJ Interior
+INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO) VALUES
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe RJ Interior'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'juliana.ramos@rj.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe RJ Interior'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'kleber.castro@rj.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe RJ Interior'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'larissa.dias@rj.com'));
+-- SP Norte
+INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO) VALUES
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Norte'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'marcos.lima@sp.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Norte'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'natalia.souza@sp.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Norte'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'otavio.alves@sp.com'));
+-- SP Sul
+INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO) VALUES
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Sul'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'patricia.ramos@sp.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Sul'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'quirino.castro@sp.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Sul'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'rafaela.dias@sp.com'));
+-- SP Leste
+INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO) VALUES
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Leste'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'samuel.lima@sp.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Leste'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'tatiane.souza@sp.com')),
+  ((SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Equipe SP Leste'), (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'ubirajara.alves@sp.com'));
+
+-- SENSORES (1 para cada equipe, para facilitar 5 alertas por equipe)
 INSERT INTO SENSOR (TIPO_SENSOR, MARCA, LOCALIZACAO, UNIDADE_MEDIDA, DATA_INSTALACAO, STATUS_SENSOR, VALOR_LIDO_SENSOR, DATA_HORA_LEITURA_SENSOR, ID_AREA_RISCO) VALUES
-  ('Temperatura',   'Acme', 'Galpãos',      'Celsius',        CURRENT_DATE, 'Ativo', 25.0, CURRENT_TIMESTAMP, 1),
-  ('Umidade',       'Acme', 'Cobertura',    'Percentual',     CURRENT_DATE, 'Ativo', 80.0, CURRENT_TIMESTAMP, 2),
-  ('Movimentação',  'Acme', 'Subterrâneo',  'Movimentos/min', CURRENT_DATE, 'Ativo',  2.0, CURRENT_TIMESTAMP, 3);
+  ('Temperatura', 'MGTech', 'Sensor MG Norte', 'Celsius', CURRENT_DATE, 'Ativo', 23.5, CURRENT_TIMESTAMP, 1),
+  ('Temperatura', 'MGTech', 'Sensor MG Sul', 'Celsius', CURRENT_DATE, 'Ativo', 24.0, CURRENT_TIMESTAMP, 1),
+  ('Temperatura', 'RJTech', 'Sensor RJ Capital', 'Celsius', CURRENT_DATE, 'Ativo', 26.5, CURRENT_TIMESTAMP, 2),
+  ('Temperatura', 'RJTech', 'Sensor RJ Interior', 'Celsius', CURRENT_DATE, 'Ativo', 25.0, CURRENT_TIMESTAMP, 2),
+  ('Temperatura', 'SPTech', 'Sensor SP Norte', 'Celsius', CURRENT_DATE, 'Ativo', 22.5, CURRENT_TIMESTAMP, 3),
+  ('Temperatura', 'SPTech', 'Sensor SP Sul', 'Celsius', CURRENT_DATE, 'Ativo', 21.0, CURRENT_TIMESTAMP, 3),
+  ('Temperatura', 'SPTech', 'Sensor SP Leste', 'Celsius', CURRENT_DATE, 'Ativo', 20.5, CURRENT_TIMESTAMP, 3),
+  ('Temperatura', 'SPTech', 'Sensor SP Leste Especial', 'Celsius', CURRENT_DATE, 'Ativo', 21.0, CURRENT_TIMESTAMP, (SELECT ID_AREA_RISCO FROM AREA_RISCO WHERE NOME_AREA = 'SP Leste Especial'));
 
-INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE) VALUES
-  ('Temperatura Alta', 'Detectada temperatura acima do permitido', 3, CURRENT_DATE, 'Temperatura perigosa no galpão!', 'Ativo', 60.0, CURRENT_TIMESTAMP, NULL, 'Aguardando vistoria.', 1, 1),
-  ('Alagamento', 'Umidade excessiva detectada', 2, CURRENT_DATE, 'Risco de alagamento identificado!', 'Ativo', 90.0, CURRENT_TIMESTAMP, NULL, 'Monitorar nível de água.', 2, 1),
-  ('Risco de Desabamento', 'Estrutura comprometida detectada por sensores.', 4, CURRENT_DATE, 'Atenção: Estrutura do prédio pode ceder. Evacuação recomendada!', 'Ativo', 1.0, CURRENT_TIMESTAMP, NULL, 'Isolar o local e acionar Defesa Civil.', 3, 1);
+-- ALERTAS (5 para cada equipe, 1 sensor/equipe)
+-- MG Norte
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 MG Norte', 'Evento 1 MG Norte', 2, CURRENT_DATE, 'Mensagem 1 MG Norte', 'Ativo', 50.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Norte')),
+('Alerta 2 MG Norte', 'Evento 2 MG Norte', 3, CURRENT_DATE, 'Mensagem 2 MG Norte', 'Ativo', 48.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Norte')),
+('Alerta 3 MG Norte', 'Evento 3 MG Norte', 1, CURRENT_DATE, 'Mensagem 3 MG Norte', 'Ativo', 45.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Norte')),
+('Alerta 4 MG Norte', 'Evento 4 MG Norte', 2, CURRENT_DATE, 'Mensagem 4 MG Norte', 'Ativo', 42.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Norte')),
+('Alerta 5 MG Norte', 'Evento 5 MG Norte', 1, CURRENT_DATE, 'Mensagem 5 MG Norte', 'Ativo', 40.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Norte'));
 
-INSERT INTO EQUIPE_RESPOSTA_USUARIO (ID_EQUIPE, ID_USUARIO)
-SELECT
-  (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Alfa'),
-  (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'joao.silva@email.com')
-UNION ALL
-SELECT
-  (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE = 'Alfa'),
-  (SELECT ID_USUARIO FROM USUARIO WHERE EMAIL = 'maria.souza@email.com');
+-- MG Sul
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 MG Sul', 'Evento 1 MG Sul', 2, CURRENT_DATE, 'Mensagem 1 MG Sul', 'Ativo', 49.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Sul')),
+('Alerta 2 MG Sul', 'Evento 2 MG Sul', 3, CURRENT_DATE, 'Mensagem 2 MG Sul', 'Ativo', 47.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Sul')),
+('Alerta 3 MG Sul', 'Evento 3 MG Sul', 1, CURRENT_DATE, 'Mensagem 3 MG Sul', 'Ativo', 44.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Sul')),
+('Alerta 4 MG Sul', 'Evento 4 MG Sul', 2, CURRENT_DATE, 'Mensagem 4 MG Sul', 'Ativo', 41.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Sul')),
+('Alerta 5 MG Sul', 'Evento 5 MG Sul', 1, CURRENT_DATE, 'Mensagem 5 MG Sul', 'Ativo', 39.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', 1, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe MG Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor MG Sul'));
+
+-- RJ Capital
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 RJ Capital', 'Evento 1 RJ Capital', 3, CURRENT_DATE, 'Mensagem 1 RJ Capital', 'Ativo', 55.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Capital'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Capital')),
+('Alerta 2 RJ Capital', 'Evento 2 RJ Capital', 2, CURRENT_DATE, 'Mensagem 2 RJ Capital', 'Ativo', 53.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Capital'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Capital')),
+('Alerta 3 RJ Capital', 'Evento 3 RJ Capital', 1, CURRENT_DATE, 'Mensagem 3 RJ Capital', 'Ativo', 50.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Capital'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Capital')),
+('Alerta 4 RJ Capital', 'Evento 4 RJ Capital', 2, CURRENT_DATE, 'Mensagem 4 RJ Capital', 'Ativo', 47.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Capital'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Capital')),
+('Alerta 5 RJ Capital', 'Evento 5 RJ Capital', 1, CURRENT_DATE, 'Mensagem 5 RJ Capital', 'Ativo', 44.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Capital'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Capital'));
+
+-- RJ Interior
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 RJ Interior', 'Evento 1 RJ Interior', 3, CURRENT_DATE, 'Mensagem 1 RJ Interior', 'Ativo', 52.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Interior'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Interior')),
+('Alerta 2 RJ Interior', 'Evento 2 RJ Interior', 2, CURRENT_DATE, 'Mensagem 2 RJ Interior', 'Ativo', 50.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Interior'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Interior')),
+('Alerta 3 RJ Interior', 'Evento 3 RJ Interior', 1, CURRENT_DATE, 'Mensagem 3 RJ Interior', 'Ativo', 48.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Interior'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Interior')),
+('Alerta 4 RJ Interior', 'Evento 4 RJ Interior', 2, CURRENT_DATE, 'Mensagem 4 RJ Interior', 'Ativo', 45.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Interior'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Interior')),
+('Alerta 5 RJ Interior', 'Evento 5 RJ Interior', 1, CURRENT_DATE, 'Mensagem 5 RJ Interior', 'Ativo', 43.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', 2, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe RJ Interior'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor RJ Interior'));
+
+-- SP Norte
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 SP Norte', 'Evento 1 SP Norte', 2, CURRENT_DATE, 'Mensagem 1 SP Norte', 'Ativo', 51.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Norte')),
+('Alerta 2 SP Norte', 'Evento 2 SP Norte', 3, CURRENT_DATE, 'Mensagem 2 SP Norte', 'Ativo', 49.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Norte')),
+('Alerta 3 SP Norte', 'Evento 3 SP Norte', 1, CURRENT_DATE, 'Mensagem 3 SP Norte', 'Ativo', 47.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Norte')),
+('Alerta 4 SP Norte', 'Evento 4 SP Norte', 2, CURRENT_DATE, 'Mensagem 4 SP Norte', 'Ativo', 45.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Norte')),
+('Alerta 5 SP Norte', 'Evento 5 SP Norte', 1, CURRENT_DATE, 'Mensagem 5 SP Norte', 'Ativo', 43.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Norte'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Norte'));
+
+-- SP Sul
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 SP Sul', 'Evento 1 SP Sul', 2, CURRENT_DATE, 'Mensagem 1 SP Sul', 'Ativo', 53.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Sul')),
+('Alerta 2 SP Sul', 'Evento 2 SP Sul', 3, CURRENT_DATE, 'Mensagem 2 SP Sul', 'Ativo', 50.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Sul')),
+('Alerta 3 SP Sul', 'Evento 3 SP Sul', 1, CURRENT_DATE, 'Mensagem 3 SP Sul', 'Ativo', 47.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Sul')),
+('Alerta 4 SP Sul', 'Evento 4 SP Sul', 2, CURRENT_DATE, 'Mensagem 4 SP Sul', 'Ativo', 44.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Sul')),
+('Alerta 5 SP Sul', 'Evento 5 SP Sul', 1, CURRENT_DATE, 'Mensagem 5 SP Sul', 'Ativo', 41.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Sul'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Sul'));
+
+-- SP Leste (área comum)
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 SP Leste', 'Evento 1 SP Leste', 2, CURRENT_DATE, 'Mensagem 1 SP Leste', 'Ativo', 54.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste')),
+('Alerta 2 SP Leste', 'Evento 2 SP Leste', 3, CURRENT_DATE, 'Mensagem 2 SP Leste', 'Ativo', 52.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste')),
+('Alerta 3 SP Leste', 'Evento 3 SP Leste', 1, CURRENT_DATE, 'Mensagem 3 SP Leste', 'Ativo', 50.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste')),
+('Alerta 4 SP Leste', 'Evento 4 SP Leste', 2, CURRENT_DATE, 'Mensagem 4 SP Leste', 'Ativo', 47.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste')),
+('Alerta 5 SP Leste', 'Evento 5 SP Leste', 1, CURRENT_DATE, 'Mensagem 5 SP Leste', 'Ativo', 44.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', 3, (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste'));
+
+-- SP Leste (área exclusiva)
+INSERT INTO ALERTA (NOME_TIPO_ALERTA, DESCRICAO_TIPO_ALERTA, NIVEL_GRAVIDADE_ALERTA, DATA_GERACAO, MENSAGEM, STATUS_ALERTA, VALOR_GATILHO, DATA_INICIO_ATUACAO, DATA_FIM_ATUACAO, OBSERVACAO_ATUACAO, ID_AREA_RISCO, ID_EQUIPE, ID_SENSOR) VALUES
+('Alerta 1 SP Leste Esp', 'Evento 1 SP Leste Esp', 2, CURRENT_DATE, 'Mensagem 1 SP Leste Esp', 'Ativo', 60.0, CURRENT_TIMESTAMP, NULL, 'Obs 1', (SELECT ID_AREA_RISCO FROM AREA_RISCO WHERE NOME_AREA='SP Leste Especial'), (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste Especial')),
+('Alerta 2 SP Leste Esp', 'Evento 2 SP Leste Esp', 3, CURRENT_DATE, 'Mensagem 2 SP Leste Esp', 'Ativo', 58.0, CURRENT_TIMESTAMP, NULL, 'Obs 2', (SELECT ID_AREA_RISCO FROM AREA_RISCO WHERE NOME_AREA='SP Leste Especial'), (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste Especial')),
+('Alerta 3 SP Leste Esp', 'Evento 3 SP Leste Esp', 1, CURRENT_DATE, 'Mensagem 3 SP Leste Esp', 'Ativo', 55.0, CURRENT_TIMESTAMP, NULL, 'Obs 3', (SELECT ID_AREA_RISCO FROM AREA_RISCO WHERE NOME_AREA='SP Leste Especial'), (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste Especial')),
+('Alerta 4 SP Leste Esp', 'Evento 4 SP Leste Esp', 2, CURRENT_DATE, 'Mensagem 4 SP Leste Esp', 'Ativo', 52.0, CURRENT_TIMESTAMP, NULL, 'Obs 4', (SELECT ID_AREA_RISCO FROM AREA_RISCO WHERE NOME_AREA='SP Leste Especial'), (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste Especial')),
+('Alerta 5 SP Leste Esp', 'Evento 5 SP Leste Esp', 1, CURRENT_DATE, 'Mensagem 5 SP Leste Esp', 'Ativo', 49.0, CURRENT_TIMESTAMP, NULL, 'Obs 5', (SELECT ID_AREA_RISCO FROM AREA_RISCO WHERE NOME_AREA='SP Leste Especial'), (SELECT ID_EQUIPE FROM EQUIPE_RESPOSTA WHERE NOME_EQUIPE='Equipe SP Leste'), (SELECT ID_SENSOR FROM SENSOR WHERE LOCALIZACAO='Sensor SP Leste Especial'));
