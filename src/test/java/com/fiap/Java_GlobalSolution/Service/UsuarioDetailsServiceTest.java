@@ -14,12 +14,11 @@ class UsuarioDetailsServiceTest {
 
     @Test
     void deveRetornarUserDetailsQuandoUsuarioExiste() {
-        Usuario usuario = Usuario.builder()
-                .email("teste@teste.com")
-                .senha("123")
-                .cargo("ADMIN")
-                .ativo('S')
-                .build();
+        Usuario usuario = new Usuario();
+        usuario.setEmail("teste@teste.com");
+        usuario.setSenha("123");
+        usuario.setCargo("Teste");
+        usuario.setAtivo('S');
 
         UsuarioRepository repo = mock(UsuarioRepository.class);
         when(repo.findByEmail("teste@teste.com")).thenReturn(Optional.of(usuario));

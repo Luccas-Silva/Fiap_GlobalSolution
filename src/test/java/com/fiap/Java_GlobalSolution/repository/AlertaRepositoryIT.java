@@ -19,16 +19,14 @@ class AlertaRepositoryIT {
 
     @Test
     void deveBuscarAlertasPorSensorId() {
-        Sensor sensor = Sensor.builder()
-                .tipoSensor("Temperatura")
-                .build();
+        Sensor sensor = new Sensor();
+        sensor.setTipoSensor("Temperatura");
         sensor = sensorRepository.save(sensor);
 
-        Alerta alerta = Alerta.builder()
-                .nomeTipoAlerta("Alerta de Teste")
-                .sensor(sensor)
-                .dataGeracao(LocalDate.now())
-                .build();
+        Alerta alerta = new Alerta();
+        alerta.setNomeTipoAlerta("Alerta de Teste");
+        alerta.setSensor(sensor);
+        alerta.setDataGeracao(LocalDate.now());
         alertaRepository.save(alerta);
 
         List<Alerta> alertas = alertaRepository.findBySensor_IdSensor(sensor.getIdSensor());
