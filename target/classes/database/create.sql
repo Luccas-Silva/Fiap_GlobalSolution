@@ -7,6 +7,8 @@ INSERT INTO AREA_RISCO (NOME_AREA, TIPO_RISCO, LATITUDE, LONGITUDE, DESCRICAO, S
 
 -- USUÁRIOS
 INSERT INTO USUARIO (NOME, EMAIL, TELEFONE, CARGO, SENHA, ATIVO) VALUES
+  ('Administrador',   'admin',   '', 'ADMIN', 'admin', 'S'),
+  ('Desenvolvedor',   'dev',   '', 'DEV', 'dev', 'S'),
   -- MG Norte
   ('Ana Lima', 'ana.lima@mg.com', '31999990011', 'Tecnica', 'senha4', 'S'),
   ('Bruno Souza', 'bruno.souza@mg.com', '31999990012', 'Supervisor', 'senha5', 'S'),

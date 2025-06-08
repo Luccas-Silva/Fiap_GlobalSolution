@@ -83,3 +83,9 @@ src/
 ## Conclusão
 
 A aplicação de sensores  para o monitoramento de encostas, barragens e zonas de risco é um exemplo claro de como a tecnologia, aliada à criatividade e ao propósito, pode transformar desafios em soluções que salvam vidas e protegem nosso planeta. Ao investir em sistemas de monitoramento preditivo, não apenas mitigamos os impactos dos eventos extremos, mas também construímos um futuro mais seguro e resiliente para todos.
+
+
+Claro, Luccas! Aqui está o **to-do list exclusivo para a entrega de Java**, pronto para copiar e colar:
+
+---
+

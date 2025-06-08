@@ -21,10 +21,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         // 1. Libera acesso público para Home, Sensores (listar), Equipes (listar)
                         .requestMatchers("/", "/sensor/lista", "/equipe/lista").permitAll()
-                        // 2. Libera arquivos estáticos (CSS, JS, imagens, webjars) para todos
+                        // 2. Libera arquivos para todos
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
-                        // 3. Libera acesso ao H2 console e actuator apenas para ADMIN ou DEV
-                        .requestMatchers("/h2-console/**", "/actuator/**").hasAnyRole("ADMIN", "DEV")
+                        // 3. Libera acesso apenas para ADMIN ou DEV
+                        .requestMatchers("/h2-console/**", "/actuator/**", "/ai/**", "/rabbit/**").hasAnyRole("ADMIN", "DEV")
                         // 4. Libera acesso autenticado para os recursos principais, independentemente do cargo/role
                         .requestMatchers("/usuario/**", "/equipe/**", "/sensor/**", "/arearisco/**", "/alerta/**").authenticated()
                         // 5. Qualquer outro endpoint requer ADMIN ou DEV
