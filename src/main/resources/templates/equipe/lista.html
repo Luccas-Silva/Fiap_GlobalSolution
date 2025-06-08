@@ -76,7 +76,7 @@
 
 <div th:each="equipe : ${equipes}">
   <div class="card">
-    Nome da Equipe:<b th:text="${equipe.nomeEquipe}"> Nome da Equipe</b>
+    <b th:text="${equipe.nomeEquipe}"> Nome da Equipe</b>
     <br>
     Historico de alertas:
     <span class="alert-count-badge"
@@ -85,7 +85,7 @@
       </span>
     <br/>
     Área de Atuação: <span th:text="${equipe.areaAtuacao}">Área</span> <br/>
-    Contato: <span th:text="${equipe.contato}">Contato</span>
+    Contato: <span th:text="${equipe.contato}">Contato</span><br/>
 
     <div class="card-actions">
       <a th:href="@{|/equipe/editar/${equipe.idEquipe}|}">Editar</a>
@@ -128,7 +128,7 @@
 
     <!-- Lista de integrantes escondida por padrão -->
     <div class="integrantes" th:id="'integrantes-' + ${equipe.idEquipe}">
-      <b>Integrantes:</b>
+      <b>Integrantes:</b><br>
       <ul>
         <li th:each="usuario : ${equipe.usuarios}">
           <span th:text="${usuario.nome}">Nome</span>

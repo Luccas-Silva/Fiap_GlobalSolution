@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <h1>Alertas</h1>
-<a th:href="@{/alerta/novo}">Novo Alerta</a>
+<a th:href="@{/alerta/novo}" class="btn">Novo Alerta</a>
 <br/><br/>
 <div th:if="${mensagem}" style="color:green" th:text="${mensagem}"></div>
 <div th:if="${erro}" style="color:red" th:text="${erro}"></div>
@@ -32,9 +32,9 @@
     <td th:text="${alerta.areaRisco != null ? alerta.areaRisco.nomeArea : 'Sem área'}"></td>
     <td th:text="${alerta.equipeResposta != null ? alerta.equipeResposta.nomeEquipe : 'Sem equipe'}"></td>
     <td>
-      <a th:href="@{'/alerta/editar/' + ${alerta.idAlerta}}">Editar</a> |
+      <a th:href="@{'/alerta/editar/' + ${alerta.idAlerta}}" class="btn">Editar</a> |
       <a th:href="@{'/alerta/deletar/' + ${alerta.idAlerta}}"
-         onclick="return confirm('Tem certeza que deseja deletar este alerta?');">Deletar</a>
+         onclick="return confirm('Tem certeza que deseja deletar este alerta?');" class="btn">Deletar</a>
     </td>
   </tr>
   </tbody>

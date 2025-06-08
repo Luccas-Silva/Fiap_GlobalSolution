@@ -31,7 +31,7 @@
     <td th:text="${usuario.cargo}">Cargo</td>
     <td th:text="${usuario.senha}">Senha</td>
     <td>
-      <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}" class="btn">Editar</a>
+      <a th:href="@{|/usuario/editar/${usuario.idUsuario}|}" class="btn">Editar</a>|
       <button type="button" class="btn" th:onclick="'confirmarExclusao(' + ${usuario.idUsuario} + ')'">Deletar</button>
     </td>
   </tr>

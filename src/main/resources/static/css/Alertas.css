@@ -21,6 +21,7 @@ body {
     color: var(--primary-color);
     padding: 2rem;
     font-size: 1.6rem;
+    min-height: 100vh;
 }
 
 /* HEADER */
@@ -32,7 +33,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--background-color);
+    background: var(--bg-color);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -138,4 +139,147 @@ footer {
     font-weight: 600;
     border-top: 0.2rem solid;
     padding: 1rem;
+}
+
+/* Botão padrão */
+button, .btn, a.btn {
+    background-color: var(--second-color);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+button:hover, .btn:hover, a.btn:hover {
+    background-color: #2f2bc0;
+}
+
+a.btn {
+    margin-top: 2rem;
+    display: inline-block;
+}
+
+/* Mensagens de alerta */
+.success, .popup.success {
+    background: var(--success-color);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    display: inline-block;
+    animation: fadeout 5s forwards;
+}
+.error, .popup.error {
+    background: var(--danger-color);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    display: inline-block;
+    animation: fadeout 5s forwards;
+}
+
+@keyframes fadeout {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+/* Tabela de alertas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 2px solid #473BF0;
+    font-size: 1.6rem;
+}
+
+table th, table td {
+    border: 2px solid #ccc;
+    padding: 1rem;
+    text-align: left;
+}
+
+table th {
+    background: var(--second-color);
+    color: white;
+}
+
+table td .btn, table td a {
+    margin: 0.2rem;
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+}
+
+table tr:nth-child(even) {
+    background: #f7f7f7;
+}
+
+/* Formulário de alerta */
+form {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem 3rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.07);
+}
+
+form label {
+    display: block;
+    margin-top: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form input[type="datetime-local"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1.6rem;
+    background: #fafafa;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+form > div {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+form button[type="submit"], form a.btn, form a {
+    margin-top: 1.5rem;
+    display: inline-block;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    body {
+        padding: 1rem;
+    }
+    form {
+        padding: 1rem;
+    }
+    table th, table td {
+        padding: 0.5rem;
+        font-size: 1.2rem;
+    }
 }

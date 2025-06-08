@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <h1>Áreas de Risco</h1>
-<a th:href="@{/area_risco/novo}">Nova Área de Risco</a>
+<a th:href="@{/area_risco/novo}" class="btn">Nova Área de Risco</a>
 <br/><br/>
 <div th:if="${mensagem}" style="color:green" th:text="${mensagem}"></div>
 <div th:if="${erro}" style="color:red" th:text="${erro}"></div>
@@ -30,9 +30,9 @@
     <td th:text="${areaRisco.longitude}"></td>
     <td th:text="${areaRisco.statusArea}"></td>
     <td>
-      <a th:href="@{'/area_risco/editar/' + ${areaRisco.idAreaRisco}}">Editar</a> |
+      <a th:href="@{'/area_risco/editar/' + ${areaRisco.idAreaRisco}}" class="btn">Editar</a> |
       <a th:href="@{'/area_risco/deletar/' + ${areaRisco.idAreaRisco}}"
-         onclick="return confirm('Tem certeza que deseja deletar esta área de risco?');">Deletar</a>
+         onclick="return confirm('Tem certeza que deseja deletar esta área de risco?');" class="btn">Deletar</a>
     </td>
   </tr>
   </tbody>

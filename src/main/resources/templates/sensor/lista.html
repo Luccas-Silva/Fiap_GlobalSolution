@@ -64,12 +64,12 @@
     <div class="alertas-lista" th:id="'alertas-' + ${sensor.idSensor}">
       <b>Alertas deste sensor:</b>
       <ul>
-        <li th:each="alerta : ${alertasPorSensor[sensor.idSensor]}">
+        <li th:each="alerta : ${alertasPorSensor[sensor.idSensor]}" >
           <span th:text="${alerta.nomeTipoAlerta}">Tipo</span> -
           <span th:text="${alerta.nivelGravidadeAlerta}">Gravidade</span> -
           <span th:text="${alerta.dataGeracao != null ? #temporals.format(alerta.dataGeracao, 'dd/MM/yyyy') : '-'}">Data</span> -
           <span th:text="${alerta.statusAlerta}">Status</span>
-          <a th:href="@{|/alerta/editar/${alerta.idAlerta}|}">Ver detalhes</a>
+          <a th:href="@{|/alerta/editar/${alerta.idAlerta}|}" class="btn" >Ver detalhes</a>
         </li>
         <li th:if="${#lists.isEmpty(alertasPorSensor[sensor.idSensor])}" style="color:#888;">Nenhum alerta para este sensor.</li>
       </ul>

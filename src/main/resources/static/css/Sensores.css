@@ -16,12 +16,17 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* LAYOUT GERAL */
 body {
     background: var(--bg-color);
     color: var(--primary-color);
-    padding: 2rem;
+    padding: 2rem 7rem;
     font-size: 1.6rem;
+    min-height: 100vh;
 }
+h2 { margin-bottom: 2rem; }
+ul { padding-left: 2rem; margin-top: 1rem; }
+ul li { margin-bottom: 0.8rem; }
 
 /* HEADER */
 .header {
@@ -32,12 +37,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--background-color);
+    background: var(--bg-color);
     position: sticky;
     top: 0;
     z-index: 10;
 }
-
 .logo {
     text-decoration: none;
     font-size: 2.5rem;
@@ -46,21 +50,13 @@ body {
     display: flex;
     align-items: center;
 }
-
-.logo-green {
-    color: var(--second-color);
-}
-
+.logo-green { color: var(--second-color); }
 .menu {
     display: flex;
     list-style: none;
     gap: 2rem;
 }
-
-.menu > li {
-    position: relative;
-}
-
+.menu > li { position: relative; }
 .menu a {
     text-decoration: none;
     display: block;
@@ -70,22 +66,16 @@ body {
     border-bottom: 0.2rem solid transparent;
     transition: color 0.3s, border-bottom 0.3s;
 }
-
 .menu a:hover {
     color: var(--second-color);
     border-bottom: 0.2rem solid var(--second-color);
 }
-
 .language-menu {
     display: flex;
     gap: 1.5rem;
     align-items: center;
 }
-
-.language-menu li {
-    list-style: none;
-}
-
+.language-menu li { list-style: none; }
 .language-menu a {
     font-size: 1.4rem;
     text-decoration: none;
@@ -107,17 +97,13 @@ footer {
     width: 100%;
     margin-top: 5rem;
 }
-
 .footer-content {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-
-.footer_list li {
-    display: inline;
-}
+.footer_list li { display: inline; }
 .footer_list li a {
     padding: 2rem 1rem 0.5rem 1rem;
     color: var(--primary-color);
@@ -131,11 +117,181 @@ footer {
     color: var(--second-color);
     border-bottom: 0.2rem solid var(--second-color);
 }
-
 .footer-copyright {
     margin-top: 1rem;
     text-align: center;
     font-weight: 600;
     border-top: 0.2rem solid;
     padding: 1rem;
+}
+
+/* BOTÕES PADRÃO */
+.btn, .toggle-btn,
+.card-actions a, .card-actions button, .alertas-lista a {
+    background-color: var(--second-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+    padding: 0.7rem 1.7rem;
+    margin: 0.3rem 0.7rem 0.3rem 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 5px 0 rgba(71,59,240,0.07);
+    text-decoration: none;
+    transition: background 0.25s, color 0.25s, box-shadow 0.2s;
+}
+.btn:hover, .toggle-btn:hover,
+.card-actions a:hover, .card-actions button:hover, .alertas-lista a:hover {
+    background: #2f2bc0;
+    color: #fff;
+    box-shadow: 0 3px 12px 0 rgba(71,59,240,0.13);
+    text-decoration: none;
+}
+
+/* BOTÃO EXCLUIR */
+.btn-delete, .card-actions .btn-delete, .card-actions button.btn-delete {
+    background: var(--danger-color);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 0.7rem 1.7rem;
+    border-radius: 0.5rem;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(231,76,60,0.07);
+}
+.btn-delete:hover, .card-actions .btn-delete:hover {
+    background: #c0392b;
+    color: #fff;
+    box-shadow: 0 0 0.7rem rgba(231,76,60,0.13);
+}
+
+/* CARDS E AÇÕES */
+.card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.card b { font-size: 1.8rem; }
+.card-actions {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    z-index: 2;
+}
+
+/* ALERTAS-LISTA */
+.alertas-lista {
+    display: none;
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: #f7f7fa;
+    border-radius: 0.7rem;
+    border: 1px solid #ececec;
+    animation: fadeIn 0.4s;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* FORMULÁRIO DE SENSOR */
+form {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem 3rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.07);
+}
+form label {
+    display: block;
+    margin-top: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form input[type="datetime-local"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1.6rem;
+    background: #fafafa;
+}
+form textarea { resize: vertical; }
+form > div { margin-bottom: 1rem; width: 100%; }
+form button[type="submit"], form a.btn, form a {
+    margin-top: 1.5rem;
+    display: inline-block;
+    background-color: var(--second-color);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+form button[type="submit"]:hover, form a.btn:hover, form a:hover {
+    background-color: #2f2bc0;
+}
+
+/* MENSAGENS */
+.mensagem, .success, .popup.success {
+    background: var(--success-color);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    display: inline-block;
+    animation: fadeout 5s forwards;
+}
+.erro, .error, .popup.error {
+    background: var(--danger-color);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    display: inline-block;
+    animation: fadeout 5s forwards;
+}
+@keyframes fadeout {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    body { padding: 1rem; }
+    form { padding: 1rem; }
+    .card { padding: 1rem; }
+}
+@media (max-width: 700px) {
+    .btn, .toggle-btn,
+    .card-actions a, .card-actions button, .alertas-lista a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        padding: 0.7rem 1rem;
+    }
+    .alertas-lista { padding: 0.7rem 0.7rem; }
+    .card-actions { position: static; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
 }
